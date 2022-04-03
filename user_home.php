@@ -134,12 +134,6 @@ if($_SESSION['user_name']==null)
   <div class="modal fade" id="comBox">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-      <!-- <div class="modal-header bg-info">
-        <h4 class="modal-title">Emergency Box</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div> -->
       <div id="modalInfo">
 
       </div>
@@ -210,13 +204,12 @@ if($_SESSION['user_name']==null)
 </html>
 
 <script type="text/javascript">
-  $(document).ready(function(){
 
-  });
 
 
 
   $( document ).ready(function() {
+
     function progressBar()
     {
      var newStatus=$("#comStatus").val();
@@ -228,6 +221,13 @@ if($_SESSION['user_name']==null)
       $("#personal").addClass("active");
     }
   }
+
+  	function checkFeedback()
+  	{
+  		var userID=$("#user_id").val();
+  		alert(userID);
+  	}
+
   function checkEmergency(){
     var userID=$("#user_id").val();
     var check="checkEmergencyExist";
@@ -246,6 +246,11 @@ if($_SESSION['user_name']==null)
   }
   setInterval(function (){
     checkEmergency();
+    
+  }, 3000);
+
+  	setInterval(function (){
+    checkFeedback();
     
   }, 3000);
 
