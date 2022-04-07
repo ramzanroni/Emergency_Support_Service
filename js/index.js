@@ -434,17 +434,17 @@ function openEmergencyBox(serviceID)
             check: check
         },
         success: function (response) {
-         $("#modalInfo").html(response);
-     }
- });
+           $("#modalInfo").html(response);
+       }
+   });
 }
 function requestSupport() {
-   var latValue=$("#latValue").val();
-   var lonValue=$("#lonValue").val();
-   var message=$("#message").val();
-   var addPhone=$("#addPhone").val();
-   var serviceID=$("#serviceID").val();
-   var file1 = $("#file1").prop("files")[0];  
+ var latValue=$("#latValue").val();
+ var lonValue=$("#lonValue").val();
+ var message=$("#message").val();
+ var addPhone=$("#addPhone").val();
+ var serviceID=$("#serviceID").val();
+ var file1 = $("#file1").prop("files")[0];  
 
    // var file2 = $("#file2").prop("files")[0];  
    // var file2 = $("#file3").prop("files")[0];
@@ -456,9 +456,9 @@ function requestSupport() {
    if (addPhone!='' && addPhone.length<11) 
    {
     $("#addPhone").css({ "border": "1px solid red" });
-   }
-   else
-   {
+}
+else
+{
     var form_data = new FormData();
     form_data.append("latValue", latValue);
     form_data.append("lonValue", lonValue);
@@ -473,30 +473,35 @@ function requestSupport() {
     Swal.fire('Please Wait. Data Loading.');
     Swal.showLoading();
     $.ajax({
-       url: "reports/requestBoxAction.php",
-       dataType: 'script',
-       cache: false,
-       contentType: false,
-       processData: false,
-       data: form_data,                         
-       type: 'post',
-       success: function(response){
-           swal.close();
-             if (response=="success") {
-                console.log(response);
-              error_alert("Emergency Send Added Success..", "success");
-              $('#comBox').modal('hide');
-              $('body').removeClass('modal-open');
-              $('.modal-backdrop').remove();
-             } 
-             else
-             {
-              error_alert(response, "error");
-             }
-         }
-     });
+     url: "reports/requestBoxAction.php",
+     dataType: 'script',
+     cache: false,
+     contentType: false,
+     processData: false,
+     data: form_data,                         
+     type: 'post',
+     success: function(response){
+         swal.close();
+         if (response=="success") {
+            console.log(response);
+            error_alert("Emergency Send Added Success..", "success");
+            $('#comBox').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        } 
+        else
+        {
+          error_alert(response, "error");
+      }
+  }
+});
 }
 
+}
+
+function sendFeedback()
+{
+    alert('ok');
 }
 
 

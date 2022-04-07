@@ -178,49 +178,49 @@ if ($_POST['check']=="checkEmergencyExist")
 				#progressbar #personal:before {
 					font-family: FontAwesome;
 					content: "\f110"
-				}#progressbar #finish:before {
-					font-family: FontAwesome;
-					content: "\f058"
-				}
+					}#progressbar #finish:before {
+						font-family: FontAwesome;
+						content: "\f058"
+					}
 
-				#progressbar li:before {
-					width: 50px;
-					height: 50px;
-					line-height: 45px;
-					display: block;
-					font-size: 20px;
-					color: #ffffff;
-					background: lightgray;
-					border-radius: 50%;
-					margin: 0 auto 10px auto;
-					padding: 2px
-				}
-				#progressbar li:after {
-					content: '';
-					width: 100%;
-					height: 2px;
-					background: lightgray;
-					position: absolute;
-					left: 0;
-					top: 25px;
-					z-index: -1
-				}
-				#progressbar li.active:before,
-				#progressbar li.active:after {
-					background: #dc3545
-				}
-				.progress {
-					height: 20px
-				}
-				.progress-bar {
-					background-color: #dc3545
-				}
-				.fit-image {
-					width: 100%;
-					object-fit: cover
-				}
-			</style>
-			<?php
+					#progressbar li:before {
+						width: 50px;
+						height: 50px;
+						line-height: 45px;
+						display: block;
+						font-size: 20px;
+						color: #ffffff;
+						background: lightgray;
+						border-radius: 50%;
+						margin: 0 auto 10px auto;
+						padding: 2px
+					}
+					#progressbar li:after {
+						content: '';
+						width: 100%;
+						height: 2px;
+						background: lightgray;
+						position: absolute;
+						left: 0;
+						top: 25px;
+						z-index: -1
+					}
+					#progressbar li.active:before,
+					#progressbar li.active:after {
+						background: #dc3545
+					}
+					.progress {
+						height: 20px
+					}
+					.progress-bar {
+						background-color: #dc3545
+					}
+					.fit-image {
+						width: 100%;
+						object-fit: cover
+					}
+				</style>
+				<?php
 			// while ($emergencyData=mysqli_fetch_assoc($checkStatus)) 
 			// {
 				?>
@@ -242,9 +242,124 @@ if ($_POST['check']=="checkEmergencyExist")
 
 				<?php
 			// }
-			?>
+				?>
+			</div>
+			<?php
+		}
+	}
+
+	if($_POST['check']=="feedbackData")
+	{
+		$emergencyID=$_POST['id'];
+
+		?>
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">User Feedback</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
+		<div class="modal-body">
+			<style type="text/css">
+				.item {
+					width: 90px;
+					height: 90px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					user-select: none;
+					float: left;
+				}
+				.radio {
+					display: none;
+				}
+				.radio ~ span {
+					font-size: 3rem;
+					filter: grayscale(100);
+					cursor: pointer;
+					transition: 0.3s;
+				}
+
+				.radio:checked ~ span {
+					filter: grayscale(0);
+					font-size: 4rem;
+				}
+
+			</style>
+			<div class="app">
+				<h1>Was this page helpful?</h1>
+				<p>Let us know how we did</p>
+
+				<div class="container">
+					<div class="item">
+						<label for="4">
+							<input class="radio" type="radio" name="feedback" id="4" onclick="getReaction(this.value)" value="Highly Satisfied">
+							<span>😍</span>
+						</label>
+					</div>
+					<div class="item">
+						<label for="5">
+							<input class="radio" type="radio" name="feedback" id="5" onclick="getReaction(this.value)" value="Satisfied">
+							<span>😊</span>
+						</label>
+					</div>
+					<div class="item">
+						<label for="3">
+							<input class="radio" type="radio" name="feedback" id="3" onclick="getReaction(this.value)" value="Avarage">
+							<span>😑</span>
+						</label>
+					</div>
+
+					<div class="item">
+						<label for="1">
+							<input class="radio" type="radio" name="feedback" id="1" onclick="getReaction(this.value)" value="Bad Service">
+							<span>😠</span>
+						</label>
+					</div>
+
+					<div class="item">
+						<label for="2">
+							<input class="radio" type="radio" name="feedback" id="2" onclick="getReaction(this.value)" value="Disgusting">
+							<span>😡</span>
+						</label>
+					</div>		
+					<p class="text-center h5 text-warning" id="reactionName"></p>
+					<input type="hidden" name="reactionValue" id="reactionValue">			
+					<div class="form-group">
+						<label>Reaction</label>
+						<textarea class="form-control" rows="2" id="reactionMessage" placeholder="Enter your reaction"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary btn-sm" onclick="sendFeedback(<?php echo $emergencyID; ?>)">Send Feedback</button>
+		</div>
+		<script type="text/javascript">
+			function getReaction(reaction)
+			{
+				$("#reactionValue").val(reaction);
+				$("#reactionName").html(reaction);
+			}
+		</script>
 		<?php
 	}
-}
-?>
+
+	if ($_POST['check']=="storeFeedback") 
+	{
+		$emergencyID=$_POST['emergencyID'];
+		$reactionValue=$_POST['reactionValue'];
+		$reactionMessage=$_POST['reactionMessage'];
+		$updateEmergencyFeedbackStatus=mysqli_query($conn, "UPDATE `emergency` SET `feedback`=1 WHERE `id`='$emergencyID'");
+		$insertFeedback=mysqli_query($conn, "INSERT INTO `emergency_feedback`( `emergency_id`, `reaction`, `feedback`) VALUES ('$emergencyID','$reactionValue','$reactionMessage')");
+		if ($updateEmergencyFeedbackStatus && $insertFeedback) 
+		{
+			echo "success";
+		}
+		else
+		{
+			echo "Something is wrong here..!";
+		}
+	}
+	?>

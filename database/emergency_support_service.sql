@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2022 at 08:26 PM
+-- Generation Time: Apr 07, 2022 at 05:48 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -140,8 +140,39 @@ CREATE TABLE `emergency` (
   `optional_mobile` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `status` varchar(200) NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp()
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `feedback` int(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `emergency`
+--
+
+INSERT INTO `emergency` (`id`, `user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`, `date`, `feedback`) VALUES
+(1, 1, '23.7878894', '90.3751976', 2, 2, 'test', '01767270653', ' ', 'Complete', '2022-04-03 10:39:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emergency_feedback`
+--
+
+CREATE TABLE `emergency_feedback` (
+  `id` int(200) NOT NULL,
+  `emergency_id` int(255) NOT NULL,
+  `reaction` varchar(255) NOT NULL,
+  `feedback` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `emergency_feedback`
+--
+
+INSERT INTO `emergency_feedback` (`id`, `emergency_id`, `reaction`, `feedback`) VALUES
+(1, 1, 'Highly Satisfied', 'Wow'),
+(2, 1, 'Highly Satisfied', 'Wow'),
+(3, 1, 'Highly Satisfied', 'wow'),
+(4, 1, 'Highly Satisfied', 'Wow');
 
 -- --------------------------------------------------------
 
@@ -163,6 +194,13 @@ CREATE TABLE `emergency_history` (
   `status` varchar(200) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `emergency_history`
+--
+
+INSERT INTO `emergency_history` (`id`, `emergency_id`, `user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`, `date`) VALUES
+(1, 1, 1, '23.7878894', '90.3751976', 2, 2, 'test', '01767270653', ' ', 'New', '2022-04-03 10:39:00');
 
 -- --------------------------------------------------------
 
@@ -242,7 +280,10 @@ CREATE TABLE `live_users` (
 INSERT INTO `live_users` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `userDistrict`, `userUpazila`, `latitude`, `longitude`, `ip_address`, `date`) VALUES
 (5, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-19', '1234', '14', '1', '23.78777457142857', '90.37513192857143', '::1', '2022-02-18 19:13:23'),
 (6, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-19', '1234', '14', '1', '23.7981653', '90.3664409', '::1', '2022-02-19 16:14:23'),
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7981436', '90.3658341', '::1', '2022-03-06 18:26:21');
+(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7981436', '90.3658341', '::1', '2022-03-06 18:26:21'),
+(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7880817', '90.3751888', '::1', '2022-04-02 21:25:43'),
+(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '', '', '::1', '2022-04-04 17:09:01'),
+(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7879264', '90.3751762', '::1', '2022-04-06 17:03:59');
 
 -- --------------------------------------------------------
 
@@ -891,7 +932,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `userDistrict`, `userUpazila`, `latitude`, `longitude`, `status`, `date`) VALUES
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7880817', '90.3751888', 1, '2022-03-06 16:32:13');
+(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7880201', '90.375175', 1, '2022-03-06 16:32:13');
 
 --
 -- Indexes for dumped tables
@@ -913,6 +954,12 @@ ALTER TABLE `district`
 -- Indexes for table `emergency`
 --
 ALTER TABLE `emergency`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `emergency_feedback`
+--
+ALTER TABLE `emergency_feedback`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -984,13 +1031,19 @@ ALTER TABLE `district`
 -- AUTO_INCREMENT for table `emergency`
 --
 ALTER TABLE `emergency`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `emergency_feedback`
+--
+ALTER TABLE `emergency_feedback`
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `emergency_history`
 --
 ALTER TABLE `emergency_history`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `history_supervisor`
