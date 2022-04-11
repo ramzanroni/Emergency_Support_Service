@@ -57,16 +57,16 @@ include "../libs/db_conn.php";
                                }
                                ?></td>
                                <td><?php echo $historyRow['date']; ?></td>
-                               <td><?php if ($historyRow['feedback']==0) {
+                               <td><?php if ($historyRow['feedback']==0 && $historyRow['status']=="Complete") {
                                 ?>
                                 <a href="#" class="btn btn-warning btn-sm" onclick="feedbackEmergency(<?php echo $historyRow['id']; ?>)">Feedback</a>
                                 <?php
                             }
-                            else{
-                                ?>
+                            if ($historyRow['feedback']==1 && $historyRow['status']=="Complete") {
+                              ?>
                                 <a href="#" class="btn btn-success btn-sm">Feedback Submited</a>
                                 <?php
-                            } ?></td>
+                            }?></td>
                         </tr>
                         <?php
                     }

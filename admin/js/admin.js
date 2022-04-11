@@ -83,6 +83,14 @@ function userList() {
         }
     });
 }
+function emergecyFeedback(){
+    $.ajax({
+        url: "reports/emergecyFeedback.php",
+        success: function (result) {
+            $("#content").html(result);
+        }
+    });
+}
 
 
 // send email for new user 
@@ -619,4 +627,9 @@ function deactiveUser(id, status)
         }
     }
 });
+}
+
+function viewFeedback(feedbackId)
+{
+    alert(feedbackId);
 }
