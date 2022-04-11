@@ -92,6 +92,16 @@ function emergecyFeedback(){
     });
 }
 
+function emergecyReport() 
+{
+    $.ajax({
+        url: "reports/emergecyReport.php",
+        success: function (result) {
+            $("#content").html(result);
+        }
+    });
+}
+
 
 // send email for new user 
 function sendEmailForNewUser() {
@@ -606,30 +616,46 @@ function activeSupervisor(id) {
 function deactiveUser(id, status) 
 {
     var check = "deactiveUser";
+    Swal.fire('Please Wait. Data Loading.');
+    Swal.showLoading();
+    $.ajax({
+        url: "reports/userManage.php",
+        type: "POST",
+        data: {
+            check: check,
+            status: status,
+            id:id
+        },
+        success: function (response) {
+            swal.close();
+            if (response == "success") {
+                error_alert("User Manage Successfully Completed...", "success");
+                userList();
+            }
+            else {
+                error_alert(response, "error");
+            }
+        }
+    });
+}
+
+function emergencyHisotoryView(emergencyID,emergencyMessage)
+{
+    $("#emergencyHistoryView").modal('show');
+    var check = "emergencyHistory";
    Swal.fire('Please Wait. Data Loading.');
    Swal.showLoading();
    $.ajax({
-    url: "reports/userManage.php",
+    url: "reports/emergecyHistory.php",
     type: "POST",
     data: {
         check: check,
-        status: status,
-        id:id
+        emergencyID: emergencyID,
+        emergencyMessage:emergencyMessage
     },
     success: function (response) {
         swal.close();
-        if (response == "success") {
-            error_alert("User Manage Successfully Completed...", "success");
-            userList();
-        }
-        else {
-            error_alert(response, "error");
-        }
+        $("#emergencyHistoryData").html(response);
     }
 });
-}
-
-function viewFeedback(feedbackId)
-{
-    alert(feedbackId);
 }
