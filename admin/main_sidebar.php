@@ -22,6 +22,29 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
+							<a href="#" onclick="addArea()" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Add Area</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" onclick="userList()" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Users List</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<i class="nav-icon fas fa-users-cog"></i>
+						<p>
+							Supervisors
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
 							<a href="#" onclick="addSupervisor()" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Add Supervisor</p>
@@ -34,15 +57,15 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" onclick="addArea()" class="nav-link">
+							<a href="#" onclick="supervisorActivity()" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
-								<p>Add Area</p>
+								<p>Supervisors Activity</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" onclick="userList()" class="nav-link">
+							<a href="#" onclick="supervisorLive()" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
-								<p>Users List</p>
+								<p>Live Supervisors</p>
 							</a>
 						</li>
 					</ul>

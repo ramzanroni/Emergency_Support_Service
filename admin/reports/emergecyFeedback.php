@@ -8,10 +8,10 @@ include "../../libs/db_conn.php";
 		<div class="col-md-12" id="district_area">
 			<div class="card card-primary card-outline">
 				<div class="card-header">
-					<h3 class="card-title">Supervisors</h3>
+					<h3 class="card-title">Emergencies Feedback</h3>
 				</div>
 				<div class="card-body">
-					<table id="supervisorTbl" class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th>SL</th>

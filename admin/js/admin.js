@@ -101,6 +101,24 @@ function emergecyReport()
         }
     });
 }
+function supervisorActivity() 
+{
+    $.ajax({
+        url: "reports/supervisorActivity.php",
+        success: function (result) {
+            $("#content").html(result);
+        }
+    });
+}
+function supervisorLive()
+{
+    $.ajax({
+        url: "reports/liveSupervisor.php",
+        success: function (result) {
+            $("#content").html(result);
+        }
+    });
+}
 
 
 // send email for new user 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2022 at 05:48 AM
+-- Generation Time: Apr 12, 2022 at 08:30 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -149,7 +149,7 @@ CREATE TABLE `emergency` (
 --
 
 INSERT INTO `emergency` (`id`, `user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`, `date`, `feedback`) VALUES
-(1, 1, '23.7878894', '90.3751976', 2, 2, 'test', '01767270653', ' ', 'Complete', '2022-04-03 10:39:00', 1);
+(2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'Complete', '2022-04-11 20:27:39', 0);
 
 -- --------------------------------------------------------
 
@@ -163,16 +163,6 @@ CREATE TABLE `emergency_feedback` (
   `reaction` varchar(255) NOT NULL,
   `feedback` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `emergency_feedback`
---
-
-INSERT INTO `emergency_feedback` (`id`, `emergency_id`, `reaction`, `feedback`) VALUES
-(1, 1, 'Highly Satisfied', 'Wow'),
-(2, 1, 'Highly Satisfied', 'Wow'),
-(3, 1, 'Highly Satisfied', 'wow'),
-(4, 1, 'Highly Satisfied', 'Wow');
 
 -- --------------------------------------------------------
 
@@ -200,7 +190,9 @@ CREATE TABLE `emergency_history` (
 --
 
 INSERT INTO `emergency_history` (`id`, `emergency_id`, `user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`, `date`) VALUES
-(1, 1, 1, '23.7878894', '90.3751976', 2, 2, 'test', '01767270653', ' ', 'New', '2022-04-03 10:39:00');
+(2, 2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'New', '2022-04-11 20:27:39'),
+(3, 2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'Action', '2022-04-11 20:28:02'),
+(4, 2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'Complete', '2022-04-11 20:28:45');
 
 -- --------------------------------------------------------
 
@@ -211,6 +203,7 @@ INSERT INTO `emergency_history` (`id`, `emergency_id`, `user_id`, `lat`, `lon`, 
 CREATE TABLE `history_supervisor` (
   `id` int(255) NOT NULL,
   `supervisor_id` varchar(255) NOT NULL,
+  `sessionID` varchar(200) NOT NULL,
   `super_name` varchar(255) NOT NULL,
   `login_status` varchar(255) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
@@ -220,9 +213,15 @@ CREATE TABLE `history_supervisor` (
 -- Dumping data for table `history_supervisor`
 --
 
-INSERT INTO `history_supervisor` (`id`, `supervisor_id`, `super_name`, `login_status`, `date`) VALUES
-(1, '5', 'Ramzan', 'login', '2022-02-19 17:40:54'),
-(2, '5', 'Ramzan', 'logout', '2022-02-19 17:42:33');
+INSERT INTO `history_supervisor` (`id`, `supervisor_id`, `sessionID`, `super_name`, `login_status`, `date`) VALUES
+(3, '5', '6255bb9f66e93', 'Ramzan', 'login', '2022-04-12 17:49:19'),
+(4, '5', '6255bb9f66e93', 'Ramzan', 'logout', '2022-04-12 17:50:20'),
+(5, '5', '6255bbf7b4e6b', 'Ramzan', 'login', '2022-04-12 17:50:47'),
+(6, '5', '6255bbf7b4e6b', 'Ramzan', 'logout', '2022-04-12 17:51:52'),
+(7, '5', '6255bc5119019', 'Ramzan', 'login', '2022-04-12 17:52:17'),
+(8, '5', '6255bc5119019', 'Ramzan', 'logout', '2022-04-12 17:52:35'),
+(9, '5', '6255bf9103998', 'Ramzan', 'login', '2022-04-12 18:06:09'),
+(10, '5', '6255bf9103998', 'Ramzan', 'logout', '2022-04-12 18:22:14');
 
 -- --------------------------------------------------------
 
@@ -280,10 +279,7 @@ CREATE TABLE `live_users` (
 INSERT INTO `live_users` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `userDistrict`, `userUpazila`, `latitude`, `longitude`, `ip_address`, `date`) VALUES
 (5, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-19', '1234', '14', '1', '23.78777457142857', '90.37513192857143', '::1', '2022-02-18 19:13:23'),
 (6, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-19', '1234', '14', '1', '23.7981653', '90.3664409', '::1', '2022-02-19 16:14:23'),
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7981436', '90.3658341', '::1', '2022-03-06 18:26:21'),
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7880817', '90.3751888', '::1', '2022-04-02 21:25:43'),
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '', '', '::1', '2022-04-04 17:09:01'),
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7879264', '90.3751762', '::1', '2022-04-06 17:03:59');
+(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7981436', '90.3658157', '::1', '2022-04-11 16:42:06');
 
 -- --------------------------------------------------------
 
@@ -363,9 +359,6 @@ CREATE TABLE `supervisors` (
 --
 
 INSERT INTO `supervisors` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `supervisorDistrict`, `superviorUpazila`, `serviceArea`, `latitude`, `longitude`, `status`, `date`) VALUES
-(2, '1516158298', 'test', 'test', '', '1234', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-03', '1234', '', '', '2', '23.7552032', '90.3758115', 1, '2022-02-03 12:55:34'),
-(3, '1516158298', 'test', 'test', 'mdramzanroni76@gmail.com', '1234', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-03', '1234', '', '', '2', '23.7552031', '90.3758115', 1, '2022-02-03 12:57:01'),
-(4, '1516158298', 'test', 'test', 'mdramzanroni76@gmail.com', 'test', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-03', '1234', '14', '1', '2', '24.8962873', '91.8221296', 1, '2022-02-03 13:12:54'),
 (5, '1516158298', 'Ramzan', 'Roni', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-03', '12345678', '14', '1', '2', '25.7499116', '89.2270258', 0, '2022-02-03 13:24:42');
 
 -- --------------------------------------------------------
@@ -932,7 +925,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `userDistrict`, `userUpazila`, `latitude`, `longitude`, `status`, `date`) VALUES
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7880201', '90.375175', 1, '2022-03-06 16:32:13');
+(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7981659', '90.3662203', 1, '2022-03-06 16:32:13');
 
 --
 -- Indexes for dumped tables
@@ -1031,25 +1024,25 @@ ALTER TABLE `district`
 -- AUTO_INCREMENT for table `emergency`
 --
 ALTER TABLE `emergency`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `emergency_feedback`
 --
 ALTER TABLE `emergency_feedback`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `emergency_history`
 --
 ALTER TABLE `emergency_history`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `history_supervisor`
 --
 ALTER TABLE `history_supervisor`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `message_otp`

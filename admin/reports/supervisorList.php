@@ -30,7 +30,7 @@ include "../../libs/db_conn.php";
                             </thead>
                             <tbody>
                                 <?php 
-                                    $supervisorData="SELECT supervisors.*, district.district_name AS 'district', upazila.upazila_name AS 'upazila' FROM supervisors INNER JOIN district ON supervisors.supervisorDistrict = district.id INNER JOIN upazila ON supervisors.superviorUpazila = upazila.id";
+                                    $supervisorData="SELECT supervisors.*, district.district_name AS 'district', upazila.upazila_name AS 'upazila', services.service_name as 'serviceName' FROM supervisors INNER JOIN district ON supervisors.supervisorDistrict = district.id INNER JOIN upazila ON supervisors.superviorUpazila = upazila.id INNER JOIN services ON supervisors.serviceArea=services.id";
                                     $supervisorDataResult=mysqli_query($conn, $supervisorData);
                                     $sl=0;
                                     while($rowSupervisor=mysqli_fetch_assoc($supervisorDataResult))
@@ -47,7 +47,7 @@ include "../../libs/db_conn.php";
                                             <td><?php echo $rowSupervisor['nidPassport']; ?></td>
                                             <td><?php echo $rowSupervisor['district']; ?></td>
                                             <td><?php echo $rowSupervisor['upazila']; ?></td>
-                                            <td><?php echo $rowSupervisor['serviceArea']; ?></td>
+                                            <td><?php echo $rowSupervisor['serviceName']; ?></td>
 
                                             <td>
                                                 <?php

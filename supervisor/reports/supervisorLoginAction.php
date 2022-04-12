@@ -24,12 +24,15 @@ include "../../libs/db_conn.php";
            {
                
                 $supervisorData=mysqli_fetch_assoc($supervisorCheck);
+                 $uniqueId=uniqid();
                 $_SESSION['supervisorUsername']=$supervisor_username;
                 $_SESSION['firstName']=$supervisorData['firstName'];
                 $_SESSION['serviceArea']=$supervisorData['serviceArea'];
                 $_SESSION['userId']=$supervisorData['id'];
+                $_SESSION['sessionID']=$uniqueId;
                 $supervisorHistory=mysqli_query($conn, "INSERT INTO `live_supervisors`(`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `supervisorDistrict`, `superviorUpazila`, `serviceArea`, `latitude`, `longitude`, `status`) VALUES ('".$supervisorData['id']."','".$supervisorData['phoneNumber']."','".$supervisorData['firstName']."','".$supervisorData['lastName']."','".$supervisorData['emailAddress']."','".$supervisorData['userName']."','".$supervisorData['password']."','".$supervisorData['dateOfBirth']."','".$supervisorData['nidPassport']."','".$supervisorData['supervisorDistrict']."','".$supervisorData['superviorUpazila']."','".$supervisorData['serviceArea']."','".$latitude."','".$longitude."','1')");
-                $supervisorHistoryRecord=mysqli_query($conn, "INSERT INTO `history_supervisor`(`supervisor_id`, `super_name`, `login_status`) VALUES ('".$supervisorData['id']."','".$supervisorData['firstName']."','login')");
+               
+                $supervisorHistoryRecord=mysqli_query($conn, "INSERT INTO `history_supervisor`(`supervisor_id`, `sessionID`, `super_name`, `login_status`) VALUES ('".$supervisorData['id']."', '".$uniqueId."','".$supervisorData['firstName']."','login')");
                 if($supervisorHistory && $supervisorHistoryRecord)
                 {
                     echo "success";
