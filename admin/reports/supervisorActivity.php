@@ -3,14 +3,51 @@ session_start();
 include "../../libs/db_conn.php";
 
 ?>
+
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12" id="district_area">
+		<div class="col-md-12">
+			<div class="card card-primary card-outline">
+				<div class="card-header">
+					<h3 class="card-title">Supervisor Activity Search</h3>
+				</div>
+				<div class="card-body">
+					<div class="col-md-4 float-left">
+						<div class="form-group">
+							<label>District Name</label>
+							<select class="form-control" id="users">
+								<option selected>Select Supervisor</option>
+								<?php
+								$supervisor=mysqli_query($conn, "SELECT `id`,`firstName` FROM `supervisors`");
+								while($supervisorRow=mysqli_fetch_assoc($supervisor))
+								{
+									?>
+									<option value="<?php echo $supervisorRow['id']; ?>"><?php echo $supervisorRow['firstName']; ?></option>
+									<?php
+								}
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4 float-left">
+						<div class="form-group">
+							<label>Date</label>
+							<input type="date" name="date" id="date" class="form-control">
+						</div>
+					</div>
+					<div class="col-md-4 float-left">
+						<br>
+							<input type="button" onclick="searchActivity()" class="btn btn-primary mt-2" value="Search">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12" id="supervisorActivityArea">
 			<div class="card card-primary card-outline">
 				<div class="card-header">
 					<h3 class="card-title">Supervisor Activity</h3>
 				</div>
-				<div class="card-body">
+				<div class="card-body" id="supervisorActivityData">
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -89,6 +126,11 @@ include "../../libs/db_conn.php";
 	</div>
 </div>
 <script>
+	$("#users").select2({
+		theme: 'bootstrap4',
+		allowClear: true,
+		width: '100%'
+	});
 	$(function () {
 		$("table").DataTable({
 			"responsive": true, "lengthChange": false, "autoWidth": false,

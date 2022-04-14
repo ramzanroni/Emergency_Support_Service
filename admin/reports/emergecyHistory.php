@@ -32,7 +32,7 @@ if ($_POST['check']=="emergencyHistory")
 					<i class="fas fa-envelope bg-primary"></i>
 
 					<div class="timeline-item">
-						<span class="time"><i class="far fa-clock"></i> <?php echo date_format($date,"H:i"); ?></span>
+						<span class="time"><i class="far fa-clock"></i> <?php echo date_format($date,"Y-M-d H:i"); ?></span>
 
 						<h3 class="timeline-header"><a href="#"><?php echo $emergencyHistoryRow['status']; ?></a> is your current emergency status.</h3>
 

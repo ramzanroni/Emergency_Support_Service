@@ -132,7 +132,7 @@ if($_POST['check']=="upazilaData")
         </div>
             
         <div class="form-group">
-            <label>District Name</label>
+            <label>Upazila Name</label>
             <input type="text" class="form-control" id="upazilaName" placeholder="Enter Upazila Name">
         </div>
     </div>

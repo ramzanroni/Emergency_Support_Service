@@ -119,6 +119,15 @@ function supervisorLive()
         }
     });
 }
+function liveUserList()
+{
+    $.ajax({
+        url: "reports/liveUsers.php",
+        success: function (result) {
+            $("#content").html(result);
+        }
+    });
+}
 
 
 // send email for new user 
@@ -661,19 +670,43 @@ function emergencyHisotoryView(emergencyID,emergencyMessage)
 {
     $("#emergencyHistoryView").modal('show');
     var check = "emergencyHistory";
-   Swal.fire('Please Wait. Data Loading.');
-   Swal.showLoading();
-   $.ajax({
-    url: "reports/emergecyHistory.php",
-    type: "POST",
-    data: {
-        check: check,
-        emergencyID: emergencyID,
-        emergencyMessage:emergencyMessage
-    },
-    success: function (response) {
-        swal.close();
-        $("#emergencyHistoryData").html(response);
-    }
-});
+    Swal.fire('Please Wait. Data Loading.');
+    Swal.showLoading();
+    $.ajax({
+        url: "reports/emergecyHistory.php",
+        type: "POST",
+        data: {
+            check: check,
+            emergencyID: emergencyID,
+            emergencyMessage:emergencyMessage
+        },
+        success: function (response) {
+            swal.close();
+            $("#emergencyHistoryData").html(response);
+        }
+    });
+}
+
+// searchActivity
+function searchActivity()
+{
+    var users=$("#users").val();
+    var date=$("#date").val();
+    var check="userSearchActivity";
+    Swal.fire('Please Wait. Data Loading.');
+    Swal.showLoading();
+    $.ajax({
+        url: "reports/supervisorActivityAction.php",
+        type: "POST",
+        data: {
+            check: check,
+            users: users,
+            date:date
+        },
+        success: function (response) {
+            swal.close();
+            // alert(response);
+            $("#supervisorActivityData").html(response);
+        }
+    });
 }
