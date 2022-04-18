@@ -102,7 +102,13 @@ if($_SESSION['user_name']==null)
 
 							?>
 							<div class="col-md-3 float-left m-4 text-danger" style=" padding-top: 65px; padding-bottom: 32px; background: url(<?php echo $row['serviceImg']; ?>);  background-repeat: no-repeat; background-size: 100%;" onclick="openEmergencyBox('<?php echo $row["id"]; ?>')">
-								<p class="text-center h3 text-danger"><?php echo $row['service_name']; ?></p>
+								<p class="text-center h3 text-danger"><?php 
+								// if (strlen($row['service_name'])>20) 
+								// {
+									
+								// }
+								echo $row['service_name']; 
+								?></p>
 							</div>
 							<?php
 						}

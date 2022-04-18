@@ -59,29 +59,6 @@ if ($_POST['check']=="makeRequest")
 		$imageName1=' ';
 	}
 
-	// if(in_array($ext_file2, $allwoed_extention)){
-	// 	if ($_FILES['file2']['size'] < 104857600) {
-	// 		$newfilename2 = round(microtime(true)) . '.' . $ext_file2;
-	// 		$upload = move_uploaded_file($_FILES['file2']['tmp_name'], "../images/".$newfilename2);
-	// 		$imageName2="images/".$newfilename2;
-	// 	}
-	// 	else
-	// 	{
-	// 		echo "File 1 Size Is Extra large";
-	// 	}
-	// }
-
-	// if(in_array($ext_file3, $allwoed_extention)){
-	// 	if ($_FILES['file3']['size'] < 104857600) {
-	// 		$newfilename3 = round(microtime(true)) . '.' . $ext_file3;
-	// 		$upload = move_uploaded_file($_FILES['file3']['tmp_name'], "../images/".$newfilename3);
-	// 		$imageName3="images/".$newfilename3;
-	// 	}
-	// 	else
-	// 	{
-	// 		echo "File 1 Size Is Extra large";
-	// 	}
-	// }
 	//distance calculator
 
 	$distanceArray=array();
@@ -124,8 +101,9 @@ if ($_POST['check']=="makeRequest")
 
 
     $addEmergencyHistory=mysqli_query($conn, "INSERT INTO `emergency_history`(`emergency_id`,`user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`) VALUES ('$last_id','".$_SESSION['userId']."','".$latValue."','".$lonValue."','".$SupervisorUserId."','".$serviceID."','".$message."','".$addPhone."','".$imageName1."','New')");
+    $supervisorPhone=mysqli_fetch_assoc(mysqli_query($conn, "SELECT `phoneNumber` FROM `supervisors` WHERE `id`='$SupervisorUserId'"));
     if ($addEmergency && $addEmergencyHistory) {
-    	$msg="Your emergency successfully send the assigned person. Your emergency ID: ".$last_id;
+    	$msg="Your emergency successfully send the assigned person. Your emergency ID: ".$last_id." Assign person phone number: ".$supervisorPhone['phoneNumber'];
     	$send = callApi($_SESSION['userPhone'], $msg);
     	if ($send==true) 
     	{
