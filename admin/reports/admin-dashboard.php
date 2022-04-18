@@ -140,133 +140,133 @@ include "../../libs/db_conn.php";
 	<!-- /.row -->
 	<!-- Main row -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div class="row">
-	
+	<div class="row">
 
-<section class="col-lg-6 connectedSortable">
-	<div class="card card-danger">
-		<div class="card-header">
-			<h3 class="card-title">Feedback Ratio Chart</h3>
 
-			<div class="card-tools">
-				<button type="button" class="btn btn-tool" data-card-widget="collapse">
-					<i class="fas fa-minus"></i>
-				</button>
-				<button type="button" class="btn btn-tool" data-card-widget="remove">
-					<i class="fas fa-times"></i>
-				</button>
-			</div>
-		</div>
-		<div class="card-body">
-			<canvas id="myChart" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%;"></canvas>
-			<!-- <canvas id="myChart"></canvas> -->
-		</div>
-		<?php  
-		$feedbackTitle=array();
-		$feebackItem=array();
-		$countFeedback=mysqli_query($conn, "SELECT COUNT(*) AS 'item', reaction FROM `emergency_feedback` GROUP BY reaction");
-		while ($countRow=mysqli_fetch_assoc($countFeedback)) {
-			$titleStr="'".$countRow['reaction']."'";
-			array_push($feedbackTitle, $titleStr);
-			array_push($feebackItem, $countRow['item']);
-		}
-		 $title=implode(",",$feedbackTitle);
-		 $item=implode(",",$feebackItem);
-		?>
-	</div>
-</section>
-<script type="text/javascript">
-	var feedbackName = [<?php echo $title; ?>];
-	var dataElement = {
-		labels: feedbackName,
-		datasets: [{
-			label: 'My First Dataset',
-			data: [<?php echo $item; ?>],
-			backgroundColor: [
-			'rgb(255, 99, 132)',
-			'rgb(54, 162, 235)',
-			'rgb(255, 205, 86)',
-			'#3d9970',
-			'#d81b60'
-			],
-			borderColor: [
-			'rgb(255, 99, 132)',
-			'rgb(255, 159, 64)',
-			'rgb(255, 205, 86)',
-			'rgb(75, 192, 192)',
-			'rgb(54, 162, 235)'
-			],
-			borderWidth: 1
-		}]
-	};
-	var config1 = {
-		type: 'pie',
-		data: dataElement,
-		options: {
-			responsive: true,
-			plugins: {
-				legend: {
-					position: 'top',
-				},
-				title: {
-					display: true,
-					text: 'Feedback Ratio'
+		<section class="col-lg-6 connectedSortable">
+			<div class="card card-danger">
+				<div class="card-header">
+					<h3 class="card-title">Feedback Ratio Chart</h3>
+
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-tool" data-card-widget="remove">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
+					<canvas id="myChart" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%;"></canvas>
+					<!-- <canvas id="myChart"></canvas> -->
+				</div>
+				<?php  
+				$feedbackTitle=array();
+				$feebackItem=array();
+				$countFeedback=mysqli_query($conn, "SELECT COUNT(*) AS 'item', reaction FROM `emergency_feedback` GROUP BY reaction");
+				while ($countRow=mysqli_fetch_assoc($countFeedback)) {
+					$titleStr="'".$countRow['reaction']."'";
+					array_push($feedbackTitle, $titleStr);
+					array_push($feebackItem, $countRow['item']);
 				}
-			}
-		},
-	};
-	var myChart = new Chart(
-		document.getElementById('myChart'),
-		config1
-		);
-</script>
-<section class="col-lg-6 connectedSortable">
-	<div class="card card-danger">
-		<div class="card-header">
-			<h3 class="card-title">Last Seven Days Emergency</h3>
-
-			<div class="card-tools">
-				<button type="button" class="btn btn-tool" data-card-widget="collapse">
-					<i class="fas fa-minus"></i>
-				</button>
-				<button type="button" class="btn btn-tool" data-card-widget="remove">
-					<i class="fas fa-times"></i>
-				</button>
+				$title=implode(",",$feedbackTitle);
+				$item=implode(",",$feebackItem);
+				?>
 			</div>
+		</section>
+		<script type="text/javascript">
+			var feedbackName = [<?php echo $title; ?>];
+			var dataElement = {
+				labels: feedbackName,
+				datasets: [{
+					label: 'My First Dataset',
+					data: [<?php echo $item; ?>],
+					backgroundColor: [
+					'rgb(255, 99, 132)',
+					'rgb(54, 162, 235)',
+					'rgb(255, 205, 86)',
+					'#3d9970',
+					'#d81b60'
+					],
+					borderColor: [
+					'rgb(255, 99, 132)',
+					'rgb(255, 159, 64)',
+					'rgb(255, 205, 86)',
+					'rgb(75, 192, 192)',
+					'rgb(54, 162, 235)'
+					],
+					borderWidth: 1
+				}]
+			};
+			var config1 = {
+				type: 'pie',
+				data: dataElement,
+				options: {
+					responsive: true,
+					plugins: {
+						legend: {
+							position: 'top',
+						},
+						title: {
+							display: true,
+							text: 'Feedback Ratio'
+						}
+					}
+				},
+			};
+			var myChart = new Chart(
+				document.getElementById('myChart'),
+				config1
+				);
+			</script>
+			<section class="col-lg-6 connectedSortable">
+				<div class="card card-danger">
+					<div class="card-header">
+						<h3 class="card-title">Last Seven Days Emergency</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<canvas id="lastSevenDay" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%;"></canvas>
+						<!-- <canvas id="myChart"></canvas> -->
+					</div>
+					<?php  
+					$sevenDates=array();
+					$sevenEmergencyItem=array();
+					for ($i=0; $i < 7; $i++) { 
+						$dateRange="-".$i." days";
+						$date=date('Y-m-d', strtotime($dateRange));
+						array_push($sevenDates, $date);
+					}
+					foreach ($sevenDates as  $value) {
+						$statDate=$value." 00:00:00";
+						$endDate=$value. " 23:59:59";
+						$countEmergency=mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS 'totalEmergency' FROM `emergency` WHERE `date`>='$statDate' AND `date`<='$endDate'"));
+						array_push($sevenEmergencyItem, $countEmergency['totalEmergency']);
+					}
+					$dayEmergenctItem=implode(",",$sevenEmergencyItem);
+					$dayName=array();
+					foreach ($sevenDates as $dateItem) {
+						$dayNameItem=date("l", strtotime($dateItem));
+						$dayStr="'".$dayNameItem."'";
+						array_push($dayName, $dayStr);
+					}
+					$dayEmergenctItem=implode(",",$sevenEmergencyItem);
+					$dayItem=implode(",",$dayName);
+					?>
+				</div>
+			</section>
 		</div>
-		<div class="card-body">
-			<canvas id="lastSevenDay" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%;"></canvas>
-			<!-- <canvas id="myChart"></canvas> -->
-		</div>
-		<?php  
-		$sevenDates=array();
-		$sevenEmergencyItem=array();
-		for ($i=0; $i < 7; $i++) { 
-			$dateRange="-".$i." days";
-			$date=date('Y-m-d', strtotime($dateRange));
-			array_push($sevenDates, $date);
-		}
-		foreach ($sevenDates as  $value) {
-			$statDate=$value." 00:00:00";
-			$endDate=$value. " 23:59:59";
-			$countEmergency=mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS 'totalEmergency' FROM `emergency` WHERE `date`>='$statDate' AND `date`<='$endDate'"));
-			array_push($sevenEmergencyItem, $countEmergency['totalEmergency']);
-		}
-		$dayEmergenctItem=implode(",",$sevenEmergencyItem);
-		$dayName=array();
-		foreach ($sevenDates as $dateItem) {
-			$dayNameItem=date("l", strtotime($dateItem));
-			$dayStr="'".$dayNameItem."'";
-			array_push($dayName, $dayStr);
-		}
-		$dayEmergenctItem=implode(",",$sevenEmergencyItem);
-		$dayItem=implode(",",$dayName);
-		?>
-	</div>
-</section>
-</div>
-<script type="text/javascript">
-	
+		<script type="text/javascript">
+
 
 	// lastSevenDay
 	var dateName = [<?php echo $dayItem; ?>];
@@ -320,3 +320,17 @@ include "../../libs/db_conn.php";
 		);
 	</script>
 </div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		setInterval(loadDashboard, 5000);
+		function loadDashboard() {
+			$.ajax({
+				url: "reports/admin-dashboard.php",
+				success: function (result) {
+					$("#content1").html(result);
+				}
+			});
+		}
+	});
+</script>
