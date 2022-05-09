@@ -323,7 +323,7 @@ include "../../libs/db_conn.php";
 
 <script type="text/javascript">
 	$( document ).ready(function() {
-		setInterval(loadDashboard, 5000);
+		setInterval(loadDashboard, 6000);
 		function loadDashboard() {
 			$.ajax({
 				url: "reports/admin-dashboard.php",

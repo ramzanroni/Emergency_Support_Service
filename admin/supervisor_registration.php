@@ -66,7 +66,7 @@ include "../libs/db_conn.php"
 								<a href="index.php" class="h1">Emergency Support Service</a>
 							</div>
 							<div class="card-body">
-								<p class="login-box-msg">Supervisor Restration</p>
+								<p class="login-box-msg">Supervisor Registration</p>
 
 								<!-- <form method="post"> -->
                                     <div class="row">
