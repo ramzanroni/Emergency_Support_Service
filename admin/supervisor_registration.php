@@ -36,7 +36,8 @@ include "../libs/db_conn.php"
 			date_default_timezone_set("Asia/Dhaka");
 			$currentDate =date("Y-m-d h:i:s");
 			$token=$_GET['token'];
-			$tokenData=mysqli_query($conn, "SELECT * FROM `supervisor_token` WHERE `token`='$token'");
+			$supervisorID=$_GET['id'];
+			$tokenData=mysqli_query($conn, "SELECT * FROM `supervisor_token` WHERE `token`='$token' AND `supervisor_id`='$supervisorID'");
 			$tokenCount=mysqli_num_rows($tokenData);
 			if($tokenCount<1)
 			{
@@ -217,7 +218,7 @@ include "../libs/db_conn.php"
                                                 <select class="form-control" id="serviceArea">
                                                     <option selected value="">Select Service Area</option>
                                                     <?php
-                                                        $services=mysqli_query($conn, "SELECT * FROM `services` WHERE `status`='1'");
+                                                        $services=mysqli_query($conn, "SELECT * FROM `services` WHERE `status`='1' AND `id`='$supervisorID'");
                                                         while($serviceRow=mysqli_fetch_assoc($services))
                                                         {
                                                             ?>

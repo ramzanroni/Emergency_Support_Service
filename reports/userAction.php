@@ -29,11 +29,11 @@ return $ip;
 }
 if($_POST['check']=="checkPhoneOTP")
 {
- $phone_number=$_POST['phoneNumber'];
- $otpNumber = mt_rand(100000,999999); 
- $msg="Your OTP: - ".$otpNumber;
+   $phone_number=$_POST['phoneNumber'];
+   $otpNumber = mt_rand(100000,999999); 
+   $msg="Your OTP: - ".$otpNumber;
 
- function callApi($sendernumber, $mysms) {
+   function callApi($sendernumber, $mysms) {
     $sender_id = '8809612117722';
     $url = "http://sms.viatech.com.bd/smsapi?api_key=C200129761e80403eea316.03567292&type=text&contacts=".$sendernumber."&senderid=".$sender_id."&msg=".$mysms;
     $ch = curl_init();
@@ -177,16 +177,16 @@ if ($_POST['check']=="userLogin")
 // autoUpdateLocation
 if ($_POST['check']=="autoUpdateLocation") 
 {
-   $userId=$_SESSION['userId'];
-   $latitudeVal=$_POST['latitudeVal'];
-   $longitudeVal=$_POST['longitudeVal'];
-   $updateLocation=mysqli_query($conn, "UPDATE `users` SET `latitude`='".$latitudeVal."',`longitude`='".$longitudeVal."' WHERE `id`='".$userId."'");
-   if ($updateLocation) 
-   {
-       echo "success";
-   }
-   else
-   {
+ $userId=$_SESSION['userId'];
+ $latitudeVal=$_POST['latitudeVal'];
+ $longitudeVal=$_POST['longitudeVal'];
+ $updateLocation=mysqli_query($conn, "UPDATE `users` SET `latitude`='".$latitudeVal."',`longitude`='".$longitudeVal."' WHERE `id`='".$userId."'");
+ if ($updateLocation) 
+ {
+     echo "success";
+ }
+ else
+ {
     echo "Something error from server side..!";
 }
 }
@@ -240,5 +240,67 @@ if($_POST['check']=="userInfoUpdate")
     {
         echo "Something is wrong..!";
     }
+}
+
+if ($_POST['check']=="checkValiduserNumber") 
+{
+    $phone = $_POST['phone'];
+    $numLength=strlen($phone);
+    $numberSql=mysqli_query($conn, "SELECT `phoneNumber`, `id` FROM `users` WHERE `phoneNumber` LIKE '%$phone%'");
+    $userRecord=mysqli_fetch_assoc($numberSql);
+    $checkPhone=mysqli_num_rows($numberSql);
+    if ($numLength==11 && $checkPhone==1) 
+    {
+        ?>
+        <input type="hidden" name="userID" id="userUPid" value="<?php echo $userRecord['id']; ?>">
+        <?php
+    }
+    else
+    {
+        echo "Please Enter Valid Number";
+    }
+}
+
+if ($_POST['check']=='changePasswordUsingPhone') 
+{
+    $userID=$_POST['userID'];
+    $phoneNumber=$_POST['phoneNumber'];
+    $newpass = mt_rand(100000,999999);  
+   $msg="Your New Password: - ".$newpass;
+
+   function callApi($sendernumber, $mysms) {
+    $sender_id = '8809612117722';
+    $url = "http://sms.viatech.com.bd/smsapi?api_key=C200129761e80403eea316.03567292&type=text&contacts=".$sendernumber."&senderid=".$sender_id."&msg=".$mysms;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    return true;
+}
+$send = callApi($phoneNumber, $msg);
+if ($send==true) 
+{
+    $pass=md5($newpass);
+   $updatePassword=mysqli_query($conn, "UPDATE `users` SET `password`='$pass' WHERE `id`='$userID'");
+   if ($updatePassword) 
+   {
+       ?>
+         <div class="col-md-12" id="messageIns">
+          <img class="rounded mx-auto d-block" width="50%" src="images/confirm.png">
+          <p class="text-center h3">Your new password send your phone. Please check and try to login.</p>
+          <h1 class="text-center h1">Thank you</h1>
+        </div>
+       <?php
+   }
+   else
+   {
+    echo "Something is wrong";
+   }
+}
+else
+{
+    echo "Something is wrong";
+}
 }
 ?>

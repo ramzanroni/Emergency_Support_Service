@@ -578,16 +578,26 @@ function updateService() {
 // supervisorRegistrationLinkGenerate
 function supervisorRegistrationLinkGenerate() {
     var check = "supervisorRegistrationLinkGenerate";
-    $.ajax({
+    var supervisorID=$("#supervisor_id").val();
+    if (supervisorID!='') 
+    {
+    	$.ajax({
         url: "reports/sendEmail.php",
         type: "POST",
         data: {
-            check: check
+            check: check,
+            supervisorID:supervisorID
         },
         success: function (response) {
             $('#message_body').summernote('code', response);
         }
     });
+    }
+    else
+    {
+    	error_alert('Please select the supervisor type', 'error');
+    }
+    
 }
 
 // deactiveSupervisor

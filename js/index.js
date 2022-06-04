@@ -187,6 +187,65 @@ function verifyPhone() {
         }
     });
 }
+
+function checkPhone(phone) 
+{
+    var check = "checkValiduserNumber";
+    $.ajax({
+        url: "reports/userAction.php",
+        type: "POST",
+        data: {
+            phone: phone,
+            check: check
+        },
+        success: function (response) {
+
+            if (response == 'Please Enter Valid Number') {
+                $("#errorPhone").html(response);
+            }
+            else {
+                $("#errorPhone").html('');
+                $("#userID").html(response);
+            }
+        }
+    });
+}
+function changePassword() {
+    var message=$("#errorPhone").html();
+    var userID=$("#userUPid").val();
+    var phoneNumber=$("#phoneNumber").val();
+    var check="changePasswordUsingPhone";
+    if (message=='' && userID !='' && phoneNumber !='') 
+    {
+     $.ajax({
+        url: "reports/userAction.php",
+        type: "POST",
+        data: {
+            phoneNumber: phoneNumber,
+            userID:userID,
+            check: check
+        },
+        success: function (response) {
+
+            if (response == 'Something is wrong') {
+                error_alert(response, 'error');
+            }
+            else {
+                error_alert('Password Update Successfully. Please Check Your SMS', 'success');
+                $("#inputArea").html(response);
+                setTimeout(function () {
+                    window.location.replace("http://localhost/Emergency_Support_Service/");
+                }, 2000);
+            }
+        }
+    });
+ }
+ else
+ {
+    error_alert('Please provide valid phone number', 'error');
+}
+}
+
 function otpValidation(otp) {
     var phoneNumber = $("#phoneNumber").val();
     var check = "otpCheck";

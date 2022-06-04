@@ -45,12 +45,13 @@ if($_POST['check']=="sendEmailForNewUser")
 if($_POST['check']=="supervisorRegistrationLinkGenerate")
 {
     $uniqueId=uniqid();
+    $supervisorID=$_POST['supervisorID'];
     // $ipaddress = getenv("REMOTE_ADDR") ;
     // $ipaddress = $_SERVER['REQUEST_URI'];
-    $tokenInsert=mysqli_query($conn, "INSERT INTO `supervisor_token`(`token`) VALUES ('$uniqueId')");
+    $tokenInsert=mysqli_query($conn, "INSERT INTO `supervisor_token`(`token`,`supervisor_id`) VALUES ('$uniqueId', '$supervisorID')");
     if($tokenInsert)
     {
-        echo $userLink="http://localhost/Emergency_Support_Service/admin/supervisor_registration.php?token=".$uniqueId;
+        echo $userLink="http://localhost/Emergency_Support_Service/admin/supervisor_registration.php?token=".$uniqueId."&&id=".$supervisorID;
     }
     
 }
