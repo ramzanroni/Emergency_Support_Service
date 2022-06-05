@@ -183,5 +183,18 @@ if($_SESSION['admin_username']==null)
       });
     }
   });
+
+  setInterval(function() {
+    var check="autoAssignEmergency";
+    $.ajax({
+        url: "reports/autoAssignEmergency.php",
+        type: "POST",
+        data: {
+            check: check
+        },
+        success: function (response) {
+        }
+    });
+  }, 5000);
 </script>
 
