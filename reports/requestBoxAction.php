@@ -5,7 +5,7 @@ include "../libs/db_conn.php";
 
 function callApi($sendernumber, $mysms) {
 	$sender_id = '8809612117722';
-	$url = "http://sms.viatech.com.bd/smsapi?api_key=C200129761e80403eea316.03567292&type=text&contacts=".$sendernumber."&senderid=".$sender_id."&msg=".$mysms;
+	$url = "http://sms.viatech.com.bd/smsapi?api_key=C200129761e80403eea316.03567292&type=text&contacts=".$sendernumber."&senderid=".$sender_id."&msg=".urlencode($mysms);
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -101,9 +101,11 @@ if ($_POST['check']=="makeRequest")
 
 
     $addEmergencyHistory=mysqli_query($conn, "INSERT INTO `emergency_history`(`emergency_id`,`user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`) VALUES ('$last_id','".$_SESSION['userId']."','".$latValue."','".$lonValue."','".$SupervisorUserId."','".$serviceID."','".$message."','".$addPhone."','".$imageName1."','New')");
-    $supervisorPhone=mysqli_fetch_assoc(mysqli_query($conn, "SELECT `phoneNumber` FROM `supervisors` WHERE `id`='$SupervisorUserId'"));
+    $supervisorPhone=mysqli_fetch_assoc(mysqli_query($conn, "SELECT `phoneNumber`, `firstName` FROM `supervisors` WHERE `id`='$SupervisorUserId'"));
     if ($addEmergency && $addEmergencyHistory) {
-    	$msg="Your emergency successfully send the assigned person. Your emergency ID: ".$last_id." Assign person phone number: ".$supervisorPhone['phoneNumber'];
+    	$msg="Your emergency successfully send the assigned person. Your emergency ID: ".$last_id;
+
+    	// $msg="route=".$latitude1."%2C".$longitude1;
     	$send = callApi($_SESSION['userPhone'], $msg);
     	if ($send==true) 
     	{

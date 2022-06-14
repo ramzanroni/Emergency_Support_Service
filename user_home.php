@@ -94,77 +94,149 @@ if($_SESSION['user_name']==null)
 					<div class="row" id="newEnergencyField">
 
 					</div>
-					<div class="row" id="emergencyUnit">
-						<?php 
-						$serviceData=mysqli_query($conn, "SELECT * FROM `services` WHERE `status`='1'");
-						while ($row=mysqli_fetch_assoc($serviceData)) 
-						{
+					<div class="row justify-content-center" id="mapView">
+						<div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 text-center p-0 mt-1 mb-1">
+							<?php 
+							$locationAddress=mysqli_query($conn, "SELECT emergency.lat AS 'lat', emergency.lon AS 'lon', supervisors.latitude AS 'latitude', supervisors.longitude AS 'longitude'
+								FROM emergency
+								INNER JOIN supervisors
+								ON emergency.supervisor_id = supervisors.id WHERE emergency.status='Action' AND emergency.user_id='".$_SESSION['userId']."' LIMIT 1 ");
+							$locationData=mysqli_fetch_assoc($locationAddress);
+								?>
+								<script type="text/javascript">
+									var markers = [
+									{
+										"lat": '<?php echo $locationData["lat"]; ?>',
+										"lng": '<?php echo $locationData["lon"]; ?>',
+										"description": '<?php echo $locationData["lat"].",".$locationData["lon"]; ?>'
+									},
+									{
+										"lat": '<?php echo $locationData["latitude"]; ?>',
+										"lng": '<?php echo $locationData["longitude"]; ?>',
+										"description": '<?php echo $locationData["latitude"].",".$locationData["longitude"]; ?>'
+									}
+									];
+									window.onload = function () {
+										var mapOptions = {
+											center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+											zoom: 15,
+											mapTypeId: google.maps.MapTypeId.ROADMAP
+										};
+										var infoWindow = new google.maps.InfoWindow();
+										var latlngbounds = new google.maps.LatLngBounds();
+										var geocoder = geocoder = new google.maps.Geocoder();
+										var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+										for (var i = 0; i < markers.length; i++) {
+											var data = markers[i]
+											var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+											var marker = new google.maps.Marker({
+												position: myLatlng,
+												map: map,
+												draggable: true,
+												animation: google.maps.Animation.DROP
+											});
+											(function (marker, data) {
+												google.maps.event.addListener(marker, "click", function (e) {
+													infoWindow.setContent(data.description);
+													infoWindow.open(map, marker);
+												});
+												google.maps.event.addListener(marker, "dragend", function (e) {
+													var lat, lng, address;
+													geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+														if (status == google.maps.GeocoderStatus.OK) {
+															lat = marker.getPosition().lat();
+															lng = marker.getPosition().lng();
+															address = results[0].formatted_address;
+															alert("Latitude: " + lat + "\nLongitude: " + lng);
+														}
+													});
+												});
+											})(marker, data);
+											latlngbounds.extend(marker.position);
+										}
+										var bounds = new google.maps.LatLngBounds();
+										map.setCenter(latlngbounds.getCenter());
+										map.fitBounds(latlngbounds);
+									}
+								</script>
+								<div id="dvMap" style="width: 100%; height: 250px">
+								</div>
+							</div>
+						</div>
+						<div class="row" id="emergencyUnit">
+							<?php 
+							$serviceData=mysqli_query($conn, "SELECT * FROM `services` WHERE `status`='1'");
+							while ($row=mysqli_fetch_assoc($serviceData)) 
+							{
 
-							?>
-							<div class="col-md-3 float-left ml-4 mr-4 mt-2 mb-2 text-danger" style=" padding-top: 65px; padding-bottom: 32px; background: url(<?php echo $row['serviceImg']; ?>);  background-repeat: no-repeat; background-size: 100%;" onclick="openEmergencyBox('<?php echo $row["id"]; ?>')">
-								<p class="text-center h3 text-danger"><?php 
+								?>
+								<div class="col-md-3 float-left ml-4 mr-4 mt-2 mb-2 text-danger" style=" padding-top: 65px; padding-bottom: 32px; background: url(<?php echo $row['serviceImg']; ?>);  background-repeat: no-repeat; background-size: 100%;" onclick="openEmergencyBox('<?php echo $row["id"]; ?>')">
+									<p class="text-center h3 text-danger"><?php 
 								// if (strlen($row['service_name'])>20) 
 								// {
-									
+
 								// }
-								echo $row['service_name']; 
-								?></p>
-							</div>
-							<?php
-						}
-						?>
-					</div>
-					<!-- /.row (main row) -->
-				</div><!-- /.container-fluid -->
-			</section>
-			<!-- /.content -->
+									echo $row['service_name']; 
+									?></p>
+								</div>
+								<?php
+							}
+							?>
+						</div>
+						<!-- /.row (main row) -->
+					</div><!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<input type="hidden" name="latitudeVal" id="latitudeVal">
+			<input type="hidden" name="longitudeVal" id="longitudeVal">
+			<input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['userId']; ?>"> 
+			<!-- /.content-wrapper -->
+			<?php 
+			include_once "footer.php";
+			?>
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
 		</div>
-		<input type="hidden" name="latitudeVal" id="latitudeVal">
-		<input type="hidden" name="longitudeVal" id="longitudeVal">
-		<input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['userId']; ?>"> 
-		<!-- /.content-wrapper -->
-		<?php 
-		include_once "footer.php";
-		?>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
-	</div>
-	<!-- ./wrapper -->
+		<!-- ./wrapper -->
 
 
-	<!-- modal -->
-	<div class="modal fade" id="comBox">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div id="modalInfo">
+		<!-- modal -->
+		<div class="modal fade" id="comBox">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div id="modalInfo">
+
+					</div>
 
 				</div>
-
+				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-content -->
+			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal-dialog -->
-	</div>
 
-
-	<!-- jQuery -->
-	<script src="plugins/jquery/jquery.min.js"></script>
-	<!-- jQuery UI 1.11.4 -->
-	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-	<script>
-		$.widget.bridge('uibutton', $.ui.button)
-	</script>
-	<!-- Bootstrap 4 -->
-	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- ChartJS -->
-	<script src="plugins/chart.js/Chart.min.js"></script>
-	<!-- Sparkline -->
-	<script src="plugins/sparklines/sparkline.js"></script>
+		<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAjbn_rb7xcavM74VhIUOLjnBFbURiZXc&callback=initMap&v=weekly"
+		async
+		></script>
+		<!-- jQuery -->
+		<script src="plugins/jquery/jquery.min.js"></script>
+		<!-- jQuery UI 1.11.4 -->
+		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$.widget.bridge('uibutton', $.ui.button)
+		</script>
+		<!-- Bootstrap 4 -->
+		<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- ChartJS -->
+		<script src="plugins/chart.js/Chart.min.js"></script>
+		<!-- Sparkline -->
+		<script src="plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap --><!-- 
 <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
 <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
@@ -215,15 +287,17 @@ if($_SESSION['user_name']==null)
 
 
 	$( document ).ready(function() {
-
+		$("#mapView").hide();
 		function progressBar()
 		{
 			var newStatus=$("#comStatus").val();
 			if (newStatus=="New") {
 				$("#emergencyUnit").hide();
+				$("#mapView").hide();
 			}
 			if (newStatus=="Action") {
 				$("#emergencyUnit").hide();
+				$("#mapView").show();
 				$("#personal").addClass("active");
 			}
 		}
@@ -259,6 +333,7 @@ if($_SESSION['user_name']==null)
 				},
 				success: function (response) {
 					$("#newEnergencyField").html(response);
+					$("#mapView").hide();
 					progressBar();
 				}
 			});

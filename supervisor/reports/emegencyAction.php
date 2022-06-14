@@ -3,7 +3,7 @@ session_start();
 include "../../libs/db_conn.php";
 function callApi($sendernumber, $mysms) {
 	$sender_id = '8809612117722';
-	$url = "http://sms.viatech.com.bd/smsapi?api_key=C200129761e80403eea316.03567292&type=text&contacts=".$sendernumber."&senderid=".$sender_id."&msg=".$mysms;
+	$url = "http://sms.viatech.com.bd/smsapi?api_key=C200129761e80403eea316.03567292&type=text&contacts=".$sendernumber."&senderid=".$sender_id."&msg=".urlencode($mysms);
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -118,9 +118,9 @@ if ($_POST['check']=="acceptEmergency")
 		$insertEmergencyHistory=mysqli_query($conn, "INSERT INTO `emergency_history`(`emergency_id`, `user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`) VALUES ('".$lastUpdateData['id']."','".$lastUpdateData['user_id']."','".$lastUpdateData['lat']."','".$lastUpdateData['lon']."','".$lastUpdateData['supervisor_id']."','".$lastUpdateData['service_id']."','".$lastUpdateData['message']."','".$lastUpdateData['optional_mobile']."','".$lastUpdateData['image']."','".$lastUpdateData['status']."')");
 		if ($insertEmergencyHistory) 
 		{
-			$emergencyInfo=mysqli_fetch_assoc(mysqli_query($conn, "SELECT emergency.id as 'id', supervisors.userName AS 'userName', users.phoneNumber AS 'phoneNumber' FROM emergency JOIN supervisors ON emergency.supervisor_id = supervisors.id  JOIN users ON emergency.user_id = users.id WHERE emergency.id='".$lastUpdateData['id']."'"));
+			$emergencyInfo=mysqli_fetch_assoc(mysqli_query($conn, "SELECT emergency.id as 'id', emergency.lat as 'lat', emergency.lon as 'lon', supervisors.latitude as 'latitude',  supervisors.longitude as 'longitude', supervisors.userName AS 'userName', supervisors.phoneNumber as 'superphoneNumber', users.phoneNumber AS 'phoneNumber' FROM emergency JOIN supervisors ON emergency.supervisor_id = supervisors.id  JOIN users ON emergency.user_id = users.id WHERE emergency.id='".$lastUpdateData['id']."'"));
 
-			$msg="Your emergency Issue accept by- ".$emergencyInfo['userName']." Thank you for your dedication..";
+			$msg="Your emergency Issue accept by- ".$emergencyInfo['userName'].". Supervisor phone number- ".$emergencyInfo['superphoneNumber'].".  Please visit this URL for view the direction: https://www.openstreetmap.org/directions?engine=graphhopper_foot&route=".$emergencyInfo['lat']."%2C".$emergencyInfo['lon']."%3B".$emergencyInfo['latitude']."%2C".$emergencyInfo['longitude'];
     		$send = callApi($emergencyInfo['phoneNumber'], $msg);
     		if ($send==true) 
     		{

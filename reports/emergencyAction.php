@@ -236,7 +236,9 @@ if ($_POST['check']=="checkEmergencyExist")
 									<li id="finish"><strong>Finish</strong></li>
 								</ul>                           
 							</div>
+
 						</div>
+							  
 					</div>
 				</div>
 
