@@ -25,7 +25,7 @@ include "../../libs/db_conn.php";
 		$countActionEmergency=mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(`status`) AS 'totalAction' FROM `emergency` WHERE `status`='Action'"));
 		?>
 		<div class="col-lg-3 col-6">
-			<div class="small-box bg-warning">
+			<div class="small-box" style="background: #5a6e83;">
 				<div class="inner">
 					<h3 class="text-white"><?php echo $countActionEmergency['totalAction']; ?></h3>
 
@@ -91,7 +91,7 @@ include "../../libs/db_conn.php";
 		$countSupervisor=mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS 'totalSupervisor' FROM `live_supervisors` WHERE `status`=1"));
 		?>
 		<div class="col-lg-3 col-6">
-			<div class="small-box" style="background: #d81b60;">
+			<div class="small-box" style="background: #81bda2;">
 				<div class="inner">
 					<h3 class="text-white"><?php echo $countSupervisor['totalSupervisor']; ?></h3>
 
@@ -124,7 +124,7 @@ include "../../libs/db_conn.php";
 		$LiveUser=mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS 'liveUser' FROM `live_users`"));
 		?>
 		<div class="col-lg-3 col-6">
-			<div class="small-box" style="background: #e83e8c;">
+			<div class="small-box" style="background: #a285d7;">
 				<div class="inner">
 					<h3 class="text-white"><?php echo $LiveUser['liveUser']; ?></h3>
 

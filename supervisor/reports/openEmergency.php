@@ -1,7 +1,7 @@
  <?php
  session_start();
  include "../../libs/db_conn.php";
-$newEmergencyData=mysqli_query($conn, "SELECT emergency.id as 'id', emergency.status as 'status',emergency.message AS 'message', services.service_name AS 'service_name', users.userName AS 'userName', users.phoneNumber AS 'phoneNumber', emergency.optional_mobile AS 'optional_mobile', emergency.date AS 'date' FROM emergency JOIN users ON emergency.user_id = users.id JOIN services ON emergency.service_id = services.id JOIN supervisors ON emergency.supervisor_id = supervisors.id WHERE emergency.status='Action' AND emergency.supervisor_id='".$_SESSION['userId']."'");
+$newEmergencyData=mysqli_query($conn, "SELECT emergency.id as 'id', emergency.status as 'status',emergency.message AS 'message', services.service_name AS 'service_name', users.userName AS 'userName', users.phoneNumber AS 'phoneNumber', emergency.optional_mobile AS 'optional_mobile', emergency.date AS 'date',emergency.lat AS 'lat', emergency.lon AS 'lon', supervisors.latitude AS 'latitude', supervisors.longitude AS 'longitude' FROM emergency JOIN users ON emergency.user_id = users.id JOIN services ON emergency.service_id = services.id JOIN supervisors ON emergency.supervisor_id = supervisors.id WHERE emergency.status='Action' AND emergency.supervisor_id='".$_SESSION['userId']."'");
  ?>
 
  <div class="container-fluid">
@@ -23,6 +23,7 @@ $newEmergencyData=mysqli_query($conn, "SELECT emergency.id as 'id', emergency.st
                 <th>Message</th>
                 <th>Status</th>
                 <th>Date</th>
+                <th>View Map</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -31,6 +32,8 @@ $newEmergencyData=mysqli_query($conn, "SELECT emergency.id as 'id', emergency.st
               $sl=1;
               while ($newEmergencyRow=mysqli_fetch_assoc($newEmergencyData)) 
               {
+              $url="https://www.openstreetmap.org/directions?engine=graphhopper_foot&route=".$newEmergencyRow['lat']."%2C".$newEmergencyRow['lon']."%3B".$newEmergencyRow['latitude']."%2C".$newEmergencyRow['longitude'];
+
                 ?>
                 <tr>
                   <td><?php echo $sl; ?></td>
@@ -41,6 +44,9 @@ $newEmergencyData=mysqli_query($conn, "SELECT emergency.id as 'id', emergency.st
                   <td><?php echo $newEmergencyRow['message']; ?></td>
                   <td><p class="btn btn-danger btn-sm"><?php echo $newEmergencyRow['status']; ?></p></td>
                   <td><?php echo $newEmergencyRow['date']; ?></td>
+                  <td>
+                  <a class="btn btn-danger btn-sm"  href="<?php echo $url; ?>" target="_blank">View Map</a>
+                  </td>
                   <td><i class="far fa-check-circle btn btn-danger text-white" onclick="completeEmergencyData('<?php echo $newEmergencyRow["id"]; ?>')"></i></td>
                 </tr>
                 <?php

@@ -71,25 +71,25 @@ if($_SESSION['user_name']==null)
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<div class="content-header">
+			<!--<div class="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1 class="m-0">Dashboard</h1>
-						</div><!-- /.col -->
+						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
 								<li class="breadcrumb-item active">Dashboard v1</li>
 							</ol>
-						</div><!-- /.col -->
-					</div><!-- /.row -->
-				</div><!-- /.container-fluid -->
-			</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
 			<!-- /.content-header -->
 
 			<!-- Main content -->
-			<section class="content" id="content">
+			<section class="content mt-4" id="content">
 				<div class="container-fluid">
 					<div class="row" id="newEnergencyField">
 
@@ -102,64 +102,17 @@ if($_SESSION['user_name']==null)
 								INNER JOIN supervisors
 								ON emergency.supervisor_id = supervisors.id WHERE emergency.status='Action' AND emergency.user_id='".$_SESSION['userId']."' LIMIT 1 ");
 							$locationData=mysqli_fetch_assoc($locationAddress);
+
+							$url="https://www.openstreetmap.org/directions?engine=graphhopper_foot&route=".$locationData['lat']."%2C".$locationData['lon']."%3B".$locationData['latitude']."%2C".$locationData['longitude'];
 								?>
-								<script type="text/javascript">
-									var markers = [
-									{
-										"lat": '<?php echo $locationData["lat"]; ?>',
-										"lng": '<?php echo $locationData["lon"]; ?>',
-										"description": '<?php echo $locationData["lat"].",".$locationData["lon"]; ?>'
-									},
-									{
-										"lat": '<?php echo $locationData["latitude"]; ?>',
-										"lng": '<?php echo $locationData["longitude"]; ?>',
-										"description": '<?php echo $locationData["latitude"].",".$locationData["longitude"]; ?>'
-									}
-									];
-									window.onload = function () {
-										var mapOptions = {
-											center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-											zoom: 15,
-											mapTypeId: google.maps.MapTypeId.ROADMAP
-										};
-										var infoWindow = new google.maps.InfoWindow();
-										var latlngbounds = new google.maps.LatLngBounds();
-										var geocoder = geocoder = new google.maps.Geocoder();
-										var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-										for (var i = 0; i < markers.length; i++) {
-											var data = markers[i]
-											var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-											var marker = new google.maps.Marker({
-												position: myLatlng,
-												map: map,
-												draggable: true,
-												animation: google.maps.Animation.DROP
-											});
-											(function (marker, data) {
-												google.maps.event.addListener(marker, "click", function (e) {
-													infoWindow.setContent(data.description);
-													infoWindow.open(map, marker);
-												});
-												google.maps.event.addListener(marker, "dragend", function (e) {
-													var lat, lng, address;
-													geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
-														if (status == google.maps.GeocoderStatus.OK) {
-															lat = marker.getPosition().lat();
-															lng = marker.getPosition().lng();
-															address = results[0].formatted_address;
-															alert("Latitude: " + lat + "\nLongitude: " + lng);
-														}
-													});
-												});
-											})(marker, data);
-											latlngbounds.extend(marker.position);
-										}
-										var bounds = new google.maps.LatLngBounds();
-										map.setCenter(latlngbounds.getCenter());
-										map.fitBounds(latlngbounds);
-									}
-								</script>
+								
 								<div id="dvMap" style="width: 100%; height: 250px">
+									<div class="col-12">
+									<img style="width: 45%;" src="images/direction.png">										
+									</div>
+									<div class="col-12 mt-2">										
+									<a class="btn btn-danger"  href="<?php echo $url; ?>" target="_blank">View Map</a>
+									</div> 
 								</div>
 							</div>
 						</div>
@@ -170,14 +123,9 @@ if($_SESSION['user_name']==null)
 							{
 
 								?>
-								<div class="col-md-3 float-left ml-4 mr-4 mt-2 mb-2 text-danger" style=" padding-top: 65px; padding-bottom: 32px; background: url(<?php echo $row['serviceImg']; ?>);  background-repeat: no-repeat; background-size: 100%;" onclick="openEmergencyBox('<?php echo $row["id"]; ?>')">
-									<p class="text-center h3 text-danger"><?php 
-								// if (strlen($row['service_name'])>20) 
-								// {
-
-								// }
-									echo $row['service_name']; 
-									?></p>
+								
+								<div class="col-md-3 float-left ml-4 mr-4 mt-2 mb-2" onclick="openEmergencyBox('<?php echo $row["id"]; ?>')">
+									<img src="<?php echo $row['serviceImg']; ?>">
 								</div>
 								<?php
 							}
