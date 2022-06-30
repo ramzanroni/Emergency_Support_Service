@@ -54,7 +54,7 @@ if($_SESSION['user_name']==null)
 
 		<!-- Preloader -->
 		<div class="preloader flex-column justify-content-center align-items-center">
-			<img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+			<img class="animation__shake" src="dist/img/logo.png" alt="AdminLTELogo"  height="500" width="500">
 		</div>
 
 		<!-- Navbar -->
@@ -89,7 +89,7 @@ if($_SESSION['user_name']==null)
 			<!-- /.content-header -->
 
 			<!-- Main content -->
-			<section class="content mt-4" id="content">
+			<section class="content" id="content">
 				<div class="container-fluid">
 					<div class="row" id="newEnergencyField">
 
@@ -116,7 +116,8 @@ if($_SESSION['user_name']==null)
 								</div>
 							</div>
 						</div>
-						<div class="row" id="emergencyUnit">
+						
+						<div class="row mt-2" id="emergencyUnit">
 							<?php 
 							$serviceData=mysqli_query($conn, "SELECT * FROM `services` WHERE `status`='1'");
 							while ($row=mysqli_fetch_assoc($serviceData)) 
@@ -124,12 +125,15 @@ if($_SESSION['user_name']==null)
 
 								?>
 								
-								<div class="col-md-3 float-left ml-4 mr-4 mt-2 mb-2" onclick="openEmergencyBox('<?php echo $row["id"]; ?>')">
-									<img src="<?php echo $row['serviceImg']; ?>">
+								<div class="col-md-3 mt-1 mb-1 float-left mb-4" >
+									<div class="shadow p-2 bg-white rounded" onclick="openEmergencyBox('<?php echo $row["id"]; ?>')">
+									<img style="width: 100%;" src="<?php echo $row['serviceImg']; ?>">
+								</div>
 								</div>
 								<?php
 							}
 							?>
+						
 						</div>
 						<!-- /.row (main row) -->
 					</div><!-- /.container-fluid -->

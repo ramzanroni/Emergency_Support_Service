@@ -66,50 +66,49 @@ $supervisorData=mysqli_fetch_assoc(mysqli_query($conn, "SELECT supervisors.*, di
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="active tab-pane" id="timeline">
-                    <!-- Post -->
-                    <div class="timeline timeline-inverse">
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-danger">
-                          10 Feb. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-envelope bg-primary"></i>
+                   <div class="active tab-pane" id="timeline">
+              <!-- Post -->
+              
+              <?php 
+              $recentActivity=mysqli_query($conn, "SELECT emergency.`message` AS'message', emergency.date AS 'date', services.service_name AS 'service_name', supervisors.firstName AS 'firstName' FROM emergency
+                INNER JOIN services ON services.id = emergency.service_id INNER JOIN supervisors ON supervisors.id=emergency.supervisor_id WHERE emergency.supervisor_id='".$_SESSION['userId']."' ORDER by emergency.id DESC LIMIT 5");
+              while ($recentActivityRow=mysqli_fetch_assoc($recentActivity)) 
+              {
+                ?>
+                <div class="timeline timeline-inverse">
+                  <!-- timeline time label -->
+                  <div class="time-label">
+                    <span class="bg-danger">
+                      <?php echo date('Y-m-d', strtotime($recentActivityRow['date'])) ; ?>
+                    </span>
+                  </div>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <div>
+                    <i class="fas fa-envelope bg-primary"></i>
 
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 12:05</span>
+                    <div class="timeline-item">
 
-                          <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                      <span class="time"><i class="far fa-clock"></i> <?php echo date('H:i:s', strtotime($recentActivityRow['date'])); ?></span>
 
-                          <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-user bg-info"></i>
+                      <h3 class="timeline-header"><a href="#"><?php echo $recentActivityRow['service_name']; ?></a> solve by <?php echo $recentActivityRow['firstName']; ?></h3>
 
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                          <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                          </h3>
-                        </div>
-                      </div>
-                      <div>
-                        <i class="far fa-clock bg-gray"></i>
+                      <div class="timeline-body">
+                        <?php echo $recentActivityRow['message']; ?>
                       </div>
                     </div>
                   </div>
+                  <!-- END timeline item -->
+                  <div>
+                    <i class="far fa-clock bg-gray"></i>
+                  </div>
+                </div>
+
+                <?php
+              }
+              ?>
+
+            </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="changePass">
                     <div class="form-group row">

@@ -11,7 +11,7 @@ function send_email($receiver_mail, $subject, $message_body)
 	$mail->Host = "smtp.gmail.com";
 	$mail->SMTPAuth = true;
 	$mail->Username = "mdramzanroni76@gmail.com";
-	$mail->Password = "ramzan@1298";  
+	$mail->Password = "gbdhatvhokzseifh";  
 	$mail->setFrom("mdramzanroni76@gmail.com", "Emergency Support Service");
 	$mail->addAddress($receiver_mail);
     // if ($_FILES['file']) {
@@ -24,7 +24,8 @@ function send_email($receiver_mail, $subject, $message_body)
      }
      else
      {
-         return "Email Not Send";
+         return $mail->ErrorInfo;
+         // return "Email Not Send";
      }
 }
 if($_POST['check']=="sendEmailForNewUser")

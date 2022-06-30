@@ -469,7 +469,7 @@ function loactionUpdate()
         success: function (response) {
             if (response!="success") 
             {
-                alert(response);
+                // alert(response);
             }
         }
     });

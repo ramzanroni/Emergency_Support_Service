@@ -62,174 +62,46 @@ $userData=mysqli_fetch_assoc(mysqli_query($conn, "SELECT users.*, district.distr
           <div class="tab-content">
             <div class="active tab-pane" id="timeline">
               <!-- Post -->
-              <div class="timeline timeline-inverse">
-                <!-- timeline time label -->
-                <div class="time-label">
-                  <span class="bg-danger">
-                    10 Feb. 2014
-                  </span>
-                </div>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-envelope bg-primary"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                    <div class="timeline-body">
-                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                      weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                      jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                      quora plaxo ideeli hulu weebly balihoo...
-                    </div>
-                    <div class="timeline-footer">
-                      <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                      <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                    </div>
+              
+              <?php 
+              $recentActivity=mysqli_query($conn, "SELECT emergency.`message` AS'message', emergency.date AS 'date', services.service_name AS 'service_name', supervisors.firstName AS 'firstName' FROM emergency
+                INNER JOIN services ON services.id = emergency.service_id INNER JOIN supervisors ON supervisors.id=emergency.supervisor_id WHERE emergency.user_id='".$_SESSION['userId']."' ORDER by emergency.id DESC LIMIT 5");
+              while ($recentActivityRow=mysqli_fetch_assoc($recentActivity)) 
+              {
+                ?>
+                <div class="timeline timeline-inverse">
+                  <!-- timeline time label -->
+                  <div class="time-label">
+                    <span class="bg-danger">
+                      <?php echo date('Y-m-d', strtotime($recentActivityRow['date'])) ; ?>
+                    </span>
                   </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-user bg-info"></i>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <div>
+                    <i class="fas fa-envelope bg-primary"></i>
 
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
+                    <div class="timeline-item">
 
-                    <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                    </h3>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-comments bg-warning"></i>
+                      <span class="time"><i class="far fa-clock"></i> <?php echo date('H:i:s', strtotime($recentActivityRow['date'])); ?></span>
 
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                      <h3 class="timeline-header"><a href="#"><?php echo $recentActivityRow['service_name']; ?></a> solve by <?php echo $recentActivityRow['firstName']; ?></h3>
 
-                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                    <div class="timeline-body">
-                      Take me to your leader!
-                      Switzerland is small and neutral!
-                      We are more like Germany, ambitious and misunderstood!
-                    </div>
-                    <div class="timeline-footer">
-                      <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline time label -->
-                <div class="time-label">
-                  <span class="bg-success">
-                    3 Jan. 2014
-                  </span>
-                </div>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-camera bg-purple"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                    <div class="timeline-body">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <div>
-                  <i class="far fa-clock bg-gray"></i>
-                </div>
-              </div>
-              <div class="post clearfix">
-                <div class="user-block">
-                  <img class="img-circle img-bordered-sm" src="../dist/img/user7-128x128.jpg" alt="User Image">
-                  <span class="username">
-                    <a href="#">Sarah Ross</a>
-                    <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                  </span>
-                  <span class="description">Sent you a message - 3 days ago</span>
-                </div>
-                <!-- /.user-block -->
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-
-                <form class="form-horizontal">
-                  <div class="input-group input-group-sm mb-0">
-                    <input class="form-control form-control-sm" placeholder="Response">
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-danger">Send</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!-- /.post -->
-
-              <!-- Post -->
-              <div class="post">
-                <div class="user-block">
-                  <img class="img-circle img-bordered-sm" src="../dist/img/user6-128x128.jpg" alt="User Image">
-                  <span class="username">
-                    <a href="#">Adam Jones</a>
-                    <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                  </span>
-                  <span class="description">Posted 5 photos - 5 days ago</span>
-                </div>
-                <!-- /.user-block -->
-                <div class="row mb-3">
-                  <div class="col-sm-6">
-                    <img class="img-fluid" src="../dist/img/photo1.png" alt="Photo">
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-6">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <img class="img-fluid mb-3" src="../dist/img/photo2.png" alt="Photo">
-                        <img class="img-fluid" src="../dist/img/photo3.jpg" alt="Photo">
+                      <div class="timeline-body">
+                        <?php echo $recentActivityRow['message']; ?>
                       </div>
-                      <!-- /.col -->
-                      <div class="col-sm-6">
-                        <img class="img-fluid mb-3" src="../dist/img/photo4.jpg" alt="Photo">
-                        <img class="img-fluid" src="../dist/img/photo1.png" alt="Photo">
-                      </div>
-                      <!-- /.col -->
                     </div>
-                    <!-- /.row -->
                   </div>
-                  <!-- /.col -->
+                  <!-- END timeline item -->
+                  <div>
+                    <i class="far fa-clock bg-gray"></i>
+                  </div>
                 </div>
-                <!-- /.row -->
 
-                <p>
-                  <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                  <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                  <span class="float-right">
-                    <a href="#" class="link-black text-sm">
-                      <i class="far fa-comments mr-1"></i> Comments (5)
-                    </a>
-                  </span>
-                </p>
+                <?php
+              }
+              ?>
 
-                <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-              </div>
-              <!-- /.post -->
             </div>
             <!-- /.tab-pane -->
             <div class="tab-pane" id="changePass">
