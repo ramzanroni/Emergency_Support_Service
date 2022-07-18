@@ -33,7 +33,7 @@ if ($_POST['check']=="openEmergencyBoxData")
 					<form enctype="multipart/form-data">
 						<div class="card-body">
 							<div class="form-group">
-								<label for="exampleInputEmail1">Message<span class="text-danger">*</span></label>
+								<label for="exampleInputEmail1">Message</label>
 								<textarea class="form-control" rows="3" id="message" name="message" placeholder="Enter Your Message"></textarea>
 							</div>
 							<div class="form-group">

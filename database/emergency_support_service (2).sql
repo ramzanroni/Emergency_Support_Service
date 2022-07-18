@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2022 at 08:30 PM
+-- Generation Time: Jul 18, 2022 at 08:04 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -149,7 +149,13 @@ CREATE TABLE `emergency` (
 --
 
 INSERT INTO `emergency` (`id`, `user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`, `date`, `feedback`) VALUES
-(2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'Complete', '2022-04-11 20:27:39', 0);
+(1, 1, '23.8698386', '90.4017045', 5, 1, 'Hello', ' ', ' ', 'Complete', '2022-06-26 23:36:29', 1),
+(2, 1, '23.8698386', '90.4017045', 6, 2, 'Hello', ' ', ' ', 'Complete', '2022-06-20 23:36:43', 0),
+(3, 1, '23.8698386', '90.4017045', 8, 4, 'Hello', ' ', ' ', 'Complete', '2022-06-24 23:37:01', 1),
+(4, 1, '23.8698386', '90.4017045', 10, 5, 'Hi', ' ', ' ', 'Complete', '2022-06-20 23:37:10', 0),
+(5, 1, '23.8698386', '90.4017045', 5, 10, 'Hello', ' ', ' ', 'Complete', '2022-06-27 23:37:23', 1),
+(6, 1, '23.869837', '90.4023119', 5, 1, 'Please help me as soon as possible. ', '01767270653', 'images/1656361098.jpeg', 'Complete', '2022-06-28 02:18:18', 0),
+(7, 1, '23.8698386', '90.4017045', 5, 1, ' ', ' ', ' ', 'Complete', '2022-07-18 23:46:46', 0);
 
 -- --------------------------------------------------------
 
@@ -163,6 +169,16 @@ CREATE TABLE `emergency_feedback` (
   `reaction` varchar(255) NOT NULL,
   `feedback` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `emergency_feedback`
+--
+
+INSERT INTO `emergency_feedback` (`id`, `emergency_id`, `reaction`, `feedback`) VALUES
+(1, 1, 'Highly Satisfied', ''),
+(2, 1, 'Highly Satisfied', 'Good Service\n'),
+(3, 3, 'Avarage', 'Avarage\n'),
+(4, 5, 'Bad Service', 'Bad Service');
 
 -- --------------------------------------------------------
 
@@ -190,9 +206,42 @@ CREATE TABLE `emergency_history` (
 --
 
 INSERT INTO `emergency_history` (`id`, `emergency_id`, `user_id`, `lat`, `lon`, `supervisor_id`, `service_id`, `message`, `optional_mobile`, `image`, `status`, `date`) VALUES
-(2, 2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'New', '2022-04-11 20:27:39'),
-(3, 2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'Action', '2022-04-11 20:28:02'),
-(4, 2, 1, '23.7981436', '90.3658157', 5, 2, 'This is test', '01767270653', 'images/1649687259.png', 'Complete', '2022-04-11 20:28:45');
+(1, 1, 1, '23.7982355', '90.3662754', 5, 1, 'test', '01767270653', ' ', 'New', '2022-04-20 20:16:21'),
+(2, 1, 1, '23.7982355', '90.3662754', 5, 1, 'test', '01767270653', ' ', 'Complete', '2022-04-27 01:53:32'),
+(3, 2, 5, '23.7878765', '90.3751589', 5, 1, ' ', ' ', ' ', 'New', '2022-04-27 01:58:55'),
+(4, 3, 1, '23.7878497', '90.3751917', 12, 6, 'Problem In Main Pipe Line', '01767270653', ' ', 'New', '2022-05-10 00:04:55'),
+(5, 3, 1, '23.7878497', '90.3751917', 12, 6, 'Problem In Main Pipe Line', '01767270653', ' ', 'Action', '2022-05-10 00:13:00'),
+(6, 3, 1, '23.7878497', '90.3751917', 12, 6, 'Problem In Main Pipe Line', '01767270653', ' ', 'Complete', '2022-05-10 00:19:35'),
+(7, 4, 1, '23.298048', '90.03008', 5, 1, ' ', ' ', ' ', 'New', '2022-05-10 23:55:03'),
+(8, 4, 1, '23.298048', '90.03008', 5, 1, ' ', ' ', ' ', 'Action', '2022-05-10 23:57:07'),
+(9, 4, 1, '23.298048', '90.03008', 5, 1, ' ', ' ', ' ', 'Action', '2022-05-11 00:19:47'),
+(10, 5, 1, '23.8698378', '90.4019806', 5, 1, ' ', ' ', ' ', 'New', '2022-06-06 00:14:35'),
+(11, 6, 2, '23.8698379', '90.4019622', 5, 1, 'Please help me', ' ', ' ', 'New', '2022-06-14 23:38:17'),
+(12, 7, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:44:27'),
+(13, 8, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:47:13'),
+(14, 9, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:49:16'),
+(15, 10, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:50:09'),
+(16, 11, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:54:18'),
+(17, 12, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:55:12'),
+(18, 13, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:55:48'),
+(19, 14, 2, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:56:39'),
+(20, 15, 2, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-14 23:59:41'),
+(21, 15, 2, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'Action', '2022-06-15 00:05:58'),
+(22, 16, 2, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-15 00:17:01'),
+(23, 16, 2, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'Action', '2022-06-15 00:17:23'),
+(24, 17, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-15 22:28:33'),
+(25, 18, 1, '23.8698379', '90.4019622', 5, 1, ' ', ' ', ' ', 'New', '2022-06-15 22:29:11'),
+(26, 1, 1, '23.8698386', '90.4017045', 5, 1, 'Hello', ' ', ' ', 'New', '2022-06-20 23:36:29'),
+(27, 2, 1, '23.8698386', '90.4017045', 6, 2, 'Hello', ' ', ' ', 'New', '2022-06-20 23:36:43'),
+(28, 3, 1, '23.8698386', '90.4017045', 8, 4, 'Hello', ' ', ' ', 'New', '2022-06-20 23:37:01'),
+(29, 4, 1, '23.8698386', '90.4017045', 10, 5, 'Hi', ' ', ' ', 'New', '2022-06-20 23:37:10'),
+(30, 5, 1, '23.8698386', '90.4017045', 0, 10, 'Hello', ' ', ' ', 'New', '2022-06-20 23:37:23'),
+(31, 6, 1, '23.869837', '90.4023119', 5, 1, 'Please help me as soon as possible. ', '01767270653', 'images/1656361098.jpeg', 'New', '2022-06-28 02:18:18'),
+(32, 6, 1, '23.869837', '90.4023119', 5, 1, 'Please help me as soon as possible. ', '01767270653', 'images/1656361098.jpeg', 'Action', '2022-06-28 03:05:54'),
+(33, 7, 1, '23.8698386', '90.4017045', 5, 1, ' ', ' ', ' ', 'New', '2022-07-18 23:37:26'),
+(34, 7, 1, '23.8698386', '90.4017045', 5, 1, ' ', ' ', ' ', 'Action', '2022-07-18 23:47:03'),
+(35, 7, 1, '23.8698386', '90.4017045', 5, 1, ' ', ' ', ' ', 'Complete', '2022-07-18 23:47:27'),
+(36, 6, 1, '23.869837', '90.4023119', 5, 1, 'Please help me as soon as possible. ', '01767270653', 'images/1656361098.jpeg', 'Complete', '2022-07-18 23:47:32');
 
 -- --------------------------------------------------------
 
@@ -214,14 +263,38 @@ CREATE TABLE `history_supervisor` (
 --
 
 INSERT INTO `history_supervisor` (`id`, `supervisor_id`, `sessionID`, `super_name`, `login_status`, `date`) VALUES
-(3, '5', '6255bb9f66e93', 'Ramzan', 'login', '2022-04-12 17:49:19'),
-(4, '5', '6255bb9f66e93', 'Ramzan', 'logout', '2022-04-12 17:50:20'),
-(5, '5', '6255bbf7b4e6b', 'Ramzan', 'login', '2022-04-12 17:50:47'),
-(6, '5', '6255bbf7b4e6b', 'Ramzan', 'logout', '2022-04-12 17:51:52'),
-(7, '5', '6255bc5119019', 'Ramzan', 'login', '2022-04-12 17:52:17'),
-(8, '5', '6255bc5119019', 'Ramzan', 'logout', '2022-04-12 17:52:35'),
-(9, '5', '6255bf9103998', 'Ramzan', 'login', '2022-04-12 18:06:09'),
-(10, '5', '6255bf9103998', 'Ramzan', 'logout', '2022-04-12 18:22:14');
+(1, '1', '62684d92a9d0a', 'Abdul', 'login', '2022-04-26 19:52:50'),
+(2, '1', '62684d92a9d0a', 'Abdul', 'logout', '2022-04-26 19:53:21'),
+(3, '5', '62684db5dd6f0', 'Sujon', 'login', '2022-04-26 19:53:25'),
+(4, '', '62684db5dd6f0', '', 'logout', '2022-04-26 20:04:40'),
+(5, '5', '6268505eef1fb', 'Sujon', 'login', '2022-04-26 20:04:47'),
+(6, '12', '627958f4ac769', 'Milon', 'login', '2022-05-09 18:09:56'),
+(7, '12', '627958f4ac769', 'Milon', 'logout', '2022-05-09 18:29:20'),
+(8, '12', '6279606b83494', 'Milon', 'login', '2022-05-09 18:41:47'),
+(9, '5', '627aa71de2dcc', 'Sujon', 'login', '2022-05-10 17:55:41'),
+(10, '1', '629cec5e6f8b4', 'Abdul', 'login', '2022-06-05 17:48:14'),
+(11, '1', '629cec5e6f8b4', 'Abdul', 'logout', '2022-06-05 17:56:13'),
+(12, '5', '62a8cdf552ed3', 'Sujon', 'login', '2022-06-14 18:05:41'),
+(13, '5', '62aa0ea4e3274', 'Sujon', 'login', '2022-06-15 16:53:56'),
+(14, '5', '62aa0ea4e3274', 'Sujon', 'logout', '2022-06-15 17:02:09'),
+(15, '5', '62aa230a8a472', 'Sujon', 'login', '2022-06-15 18:20:58'),
+(16, '5', '62aa230a8a472', 'Sujon', 'logout', '2022-06-15 18:26:01'),
+(17, '5', '62b0ba533400d', 'Sujon', 'login', '2022-06-20 18:20:03'),
+(18, '5', '62b0ba533400d', 'Sujon', 'logout', '2022-06-20 18:20:27'),
+(19, '5', '62b0c0d736733', 'Sujon', 'login', '2022-06-20 18:47:51'),
+(20, '5', '62b0c0d736733', 'Sujon', 'logout', '2022-06-20 19:05:05'),
+(21, '5', '62b4a8b4ed54c', 'Sujon', 'login', '2022-06-23 17:53:57'),
+(22, '5', '62b4a8b4ed54c', 'Sujon', 'logout', '2022-06-23 17:55:23'),
+(23, '5', '62b4d016bbd20', 'Sujon', 'login', '2022-06-23 20:41:58'),
+(24, '5', '62b5d9171b6b4', 'Sujon', 'login', '2022-06-24 15:32:39'),
+(25, '5', '62b5d9171b6b4', 'Sujon', 'logout', '2022-06-24 19:23:24'),
+(26, '5', '62ba1861c592b', 'Sujon', 'login', '2022-06-27 20:51:45'),
+(27, '5', '62beae86e9f38', 'Sujon', 'login', '2022-07-01 08:21:27'),
+(28, '5', '62beae86ebaa1', 'Sujon', 'login', '2022-07-01 08:21:27'),
+(29, '5', '62beae86ea24e', 'Sujon', 'login', '2022-07-01 08:21:27'),
+(30, '5', '62beae86ea24e', 'Sujon', 'logout', '2022-07-02 15:42:08'),
+(31, '5', '62c3533130655', 'Sujon', 'login', '2022-07-04 20:53:05'),
+(32, '5', '62d59bf60a765', 'Sujon', 'login', '2022-07-18 17:44:22');
 
 -- --------------------------------------------------------
 
@@ -248,6 +321,15 @@ CREATE TABLE `live_supervisors` (
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `live_supervisors`
+--
+
+INSERT INTO `live_supervisors` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `supervisorDistrict`, `superviorUpazila`, `serviceArea`, `latitude`, `longitude`, `status`, `date`) VALUES
+(12, '01516158298', 'Milon', 'Babu', 'milon@gmail.com', 'milon', '81dc9bdb52d04dc20036dbd8313ed055', '1994-01-05', '123456', '5', '50', '6', '23.787853', '90.3751902', 1, '2022-05-09 18:41:47'),
+(5, '01516158298', 'Sujon', 'Al Hasan', 'sujon@gmail.com', 'sujon', '81dc9bdb52d04dc20036dbd8313ed055', '1986-07-16', '23143324', '21', '184', '1', '23.8698378', '90.4020174', 1, '2022-07-04 20:53:05'),
+(5, '01516158298', 'Sujon', 'Al Hasan', 'sujon@gmail.com', 'sujon', '81dc9bdb52d04dc20036dbd8313ed055', '1986-07-16', '23143324', '21', '184', '1', '23.8698386', '90.4017045', 1, '2022-07-18 17:44:22');
+
 -- --------------------------------------------------------
 
 --
@@ -272,15 +354,6 @@ CREATE TABLE `live_users` (
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `live_users`
---
-
-INSERT INTO `live_users` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `userDistrict`, `userUpazila`, `latitude`, `longitude`, `ip_address`, `date`) VALUES
-(5, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-19', '1234', '14', '1', '23.78777457142857', '90.37513192857143', '::1', '2022-02-18 19:13:23'),
-(6, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-19', '1234', '14', '1', '23.7981653', '90.3664409', '::1', '2022-02-19 16:14:23'),
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7981436', '90.3658157', '::1', '2022-04-11 16:42:06');
-
 -- --------------------------------------------------------
 
 --
@@ -304,7 +377,14 @@ INSERT INTO `message_otp` (`id`, `phone_number`, `otp_code`) VALUES
 (4, '01516158298', 331511),
 (5, '01516158298', 140226),
 (6, '01516158298', 490779),
-(7, '01516158298', 824914);
+(7, '01516158298', 824914),
+(8, '01516158298', 396616),
+(9, '01516158298', 538724),
+(10, '01516158298', 550082),
+(11, '01767270653', 697554),
+(13, '01767270653', 360275),
+(15, '01516158298', 793733),
+(16, '01767270653', 243383);
 
 -- --------------------------------------------------------
 
@@ -324,10 +404,14 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `service_name`, `serviceImg`, `status`) VALUES
-(1, 'Test Service111', '', 0),
-(2, 'Another Test Service', '', 1),
-(3, 'test', '', 1),
-(4, 'testData', 'admin/images/1645384541.JPG', 1);
+(1, 'Anti Rape Service', 'admin/images/1650455080.png', 1),
+(2, 'Women Violence Suppression Service', 'admin/images/1650455144.png', 1),
+(3, 'Fire Service', 'admin/images/1650454873.png', 1),
+(4, 'Police Service', 'admin/images/1650454897.png', 1),
+(5, 'Ambulance Service', 'admin/images/1650454853.png', 1),
+(6, 'Dhaka Wasa Service', 'admin/images/1650455103.png', 1),
+(8, 'Hospital Service', 'admin/images/1650454819.png', 1),
+(10, 'DPDC', 'admin/images/1655408291.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -359,7 +443,20 @@ CREATE TABLE `supervisors` (
 --
 
 INSERT INTO `supervisors` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `supervisorDistrict`, `superviorUpazila`, `serviceArea`, `latitude`, `longitude`, `status`, `date`) VALUES
-(5, '1516158298', 'Ramzan', 'Roni', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-02-03', '12345678', '14', '1', '2', '25.7499116', '89.2270258', 0, '2022-02-03 13:24:42');
+(1, '01516158298', 'Abdul', 'Kader', 'abdulkader@gmail.com', 'abdul', '81dc9bdb52d04dc20036dbd8313ed055', '1991-02-20', '12121212', '1', '2', '3', '23.8093285', '90.3640069', 1, '2022-04-20 11:55:04'),
+(2, '01525252521', 'Raihan', 'Rubel', 'raihan@gmail.com', 'raihan', '81dc9bdb52d04dc20036dbd8313ed055', '1991-03-20', '2343523534', '7', '62', '1', '25.7499116', '89.2270258', 1, '2022-04-20 11:57:54'),
+(3, '01516158298', 'Arman', 'Khan', 'arman@gmail.com', 'arman', '81dc9bdb52d04dc20036dbd8313ed055', '1995-02-20', '2317831827', '4', '37', '3', '24.8925625', '91.7304654', 1, '2022-04-20 11:59:58'),
+(5, '01516158298', 'Sujon', 'Al Hasan', 'sujon@gmail.com', 'sujon', '81dc9bdb52d04dc20036dbd8313ed055', '1986-07-16', '23143324', '21', '184', '1', '23.807244', '90.3665102', 1, '2022-04-20 12:05:04'),
+(6, '01516158298', 'Jubayer', 'jubayer', 'jubayer@gmail.com', 'jubayer', '81dc9bdb52d04dc20036dbd8313ed055', '1996-06-04', '23113123', '10', '91', '2', '23.8639649', '90.3894263', 1, '2022-04-20 12:07:57'),
+(7, '01516158298', 'Babul', 'Hossian', 'babul@gmail.com', 'babul', '81dc9bdb52d04dc20036dbd8313ed055', '1989-07-05', '23456789', '3', '32', '2', '23.8747449', '90.3680953', 1, '2022-04-20 12:10:01'),
+(8, '01516158298', 'khalil', 'Rahman', 'khalil@gmail.com', 'khalil', '81dc9bdb52d04dc20036dbd8313ed055', '1995-01-30', '2345678', '43', '329', '4', '23.8747449', '90.3680953', 1, '2022-04-20 12:12:24'),
+(9, '01516158298', 'Labin', 'Khan', 'labin@gmail.com', 'labin', '81dc9bdb52d04dc20036dbd8313ed055', '1996-01-29', '23245', '2', '21', '4', '23.7981659', '90.3662019', 1, '2022-04-20 12:13:54'),
+(10, '01516158298', 'Usman', 'Khalil', 'usman@gmail.com', 'usman', '81dc9bdb52d04dc20036dbd8313ed055', '1999-12-12', '2312313', '23', '190', '5', '23.6260843', '90.4883407', 1, '2022-04-20 12:14:59'),
+(11, '01516158298', 'Iqbal', 'Karim', 'iqbal@gmail.com', 'iqbal', '81dc9bdb52d04dc20036dbd8313ed055', '1987-12-12', '12345', '15', '139', '1', '23.7981659', '90.3662019', 1, '2022-04-20 12:16:27'),
+(12, '01516158298', 'Milon', 'Babu', 'milon@gmail.com', 'milon', '81dc9bdb52d04dc20036dbd8313ed055', '1994-01-05', '123456', '5', '50', '6', '23.7981659', '90.3662019', 1, '2022-04-20 12:18:14'),
+(13, '01516158298', 'Mamun', 'Badsha', 'mamun@gmail.com', 'mamun', '81dc9bdb52d04dc20036dbd8313ed055', '1992-12-02', '234564', '25', '199', '6', '23.7714055', '90.3983645', 1, '2022-04-20 12:19:29'),
+(14, '01516158298', 'Riyad', 'Hasan', 'riyad@gmail.com', 'riyad', '81dc9bdb52d04dc20036dbd8313ed055', '1988-04-21', '132456', '27', '207', '8', '23.7981659', '90.3662019', 1, '2022-04-20 12:21:11'),
+(15, '01516158298', 'Raiyan', 'Al Kalid', 'raiyan@gmail.com', 'raiyan', '81dc9bdb52d04dc20036dbd8313ed055', '1991-01-12', '1234241', '2', '20', '8', '23.7714055', '90.3983645', 1, '2022-04-20 12:21:57');
 
 -- --------------------------------------------------------
 
@@ -370,6 +467,7 @@ INSERT INTO `supervisors` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailA
 CREATE TABLE `supervisor_token` (
   `id` int(255) NOT NULL,
   `token` varchar(255) NOT NULL,
+  `supervisor_id` int(200) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -377,13 +475,20 @@ CREATE TABLE `supervisor_token` (
 -- Dumping data for table `supervisor_token`
 --
 
-INSERT INTO `supervisor_token` (`id`, `token`, `date`) VALUES
-(1, '61f9721e5bd49', '2022-02-01 19:03:10'),
-(2, '61f9864085d98', '2022-02-01 19:25:04'),
-(3, '61f989dd2818a', '2022-02-01 19:28:29'),
-(4, '61fa86dcddf98', '2022-02-02 13:27:56'),
-(5, '61fa86edc66a7', '2022-02-02 13:28:13'),
-(6, '61faa65e5802b', '2022-02-03 10:50:00');
+INSERT INTO `supervisor_token` (`id`, `token`, `supervisor_id`, `date`) VALUES
+(1, '625ff39ca23c0', 0, '2022-04-20 11:50:52'),
+(2, '62684b240a273', 0, '2022-04-26 19:42:28'),
+(3, '62795e55c24e3', 0, '2022-05-09 18:32:53'),
+(4, '629b7d465bc4b', 0, '2022-06-04 15:41:58'),
+(5, '629b7e88f135d', 0, '2022-06-04 15:47:20'),
+(6, '629b7ef714107', 2, '2022-06-27 18:00:00'),
+(7, '62ba01ddcb68b', 3, '2022-06-27 19:15:41'),
+(8, '62ba02b56f3fd', 3, '2022-06-27 19:19:17'),
+(9, '62ba0311b98b7', 3, '2022-06-27 19:20:49'),
+(10, '62ba066fc0ec9', 3, '2022-06-27 19:35:11'),
+(11, '62ba067356a72', 3, '2022-06-27 19:35:15'),
+(12, '62bc96213a392', 4, '2022-06-29 18:12:49'),
+(13, '62d595697ef35', 1, '2022-07-18 17:16:25');
 
 -- --------------------------------------------------------
 
@@ -925,7 +1030,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `phoneNumber`, `firstName`, `lastName`, `emailAddress`, `userName`, `password`, `dateOfBirth`, `nidPassport`, `userDistrict`, `userUpazila`, `latitude`, `longitude`, `status`, `date`) VALUES
-(1, '01516158298', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', '81dc9bdb52d04dc20036dbd8313ed055', '2022-03-06', '1234', '14', '1', '23.7981659', '90.3662203', 1, '2022-03-06 16:32:13');
+(1, '01767270653', 'Ramzan', 'Ali', 'mdramzanroni76@gmail.com', 'ramzan', 'ac57481d9164a092290c5cbddcbd4929', '2022-03-06', '1234', '14', '1', '23.8698386', '90.4017045', 1, '2022-03-06 16:32:13'),
+(2, '01961118472', 'Roni', 'Nothing', 'mdramzanroni76@gmail.com', 'roni', 'c848f36948ee281dec02e30bbeef2052', '2022-06-04', '123455', '3', '26', '23.8698379', '90.4019622', 1, '2022-06-04 17:32:17');
 
 --
 -- Indexes for dumped tables
@@ -1018,55 +1124,55 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `district`
 --
 ALTER TABLE `district`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `emergency`
 --
 ALTER TABLE `emergency`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `emergency_feedback`
 --
 ALTER TABLE `emergency_feedback`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `emergency_history`
 --
 ALTER TABLE `emergency_history`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `history_supervisor`
 --
 ALTER TABLE `history_supervisor`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `message_otp`
 --
 ALTER TABLE `message_otp`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `supervisors`
 --
 ALTER TABLE `supervisors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `supervisor_token`
 --
 ALTER TABLE `supervisor_token`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `upazila`
@@ -1078,7 +1184,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
