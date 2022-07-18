@@ -11,7 +11,7 @@ function send_email($receiver_mail, $subject, $message_body)
 	$mail->Host = "smtp.gmail.com";
 	$mail->SMTPAuth = true;
 	$mail->Username = "mdramzanroni76@gmail.com";
-	$mail->Password = "gbdhatvhokzseifh";  
+	$mail->Password = "rartkvlgttkvvvli";  
 	$mail->setFrom("mdramzanroni76@gmail.com", "Emergency Support Service");
 	$mail->addAddress($receiver_mail);
     // if ($_FILES['file']) {
